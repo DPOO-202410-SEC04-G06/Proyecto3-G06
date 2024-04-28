@@ -334,6 +334,40 @@ public class Galeria implements Serializable
     }
 
     /**
+     * Busca un empleado en la galería
+     * @param username
+     * @return El empleado buscado, null si no existe
+     */
+    public Empleado buscarEmpleadoUsername(String username)
+    {
+        if (mapaEmpleados.containsKey(username))
+        {
+            return mapaEmpleados.get(username);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Busca un usuario corriente en la galería
+     * @param username
+     * @return El usuario corriente buscado, null si no existe
+     */
+    public UsuarioCorriente buscarUsuarioCorrienteUsername(String username)
+    {
+        if (mapaUsuariosCorrientes.containsKey(username))
+        {
+            return mapaUsuariosCorrientes.get(username);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
      * Agrega una nueva pieza a las piezas en venta
      * @param pieza
      */

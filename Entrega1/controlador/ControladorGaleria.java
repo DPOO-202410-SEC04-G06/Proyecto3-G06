@@ -11,7 +11,7 @@ public class ControladorGaleria
 {
     // ############################################ Atributos Controlador Galeria
     public Galeria galeria;
-    public Usuario usuarioActual;
+    public Usuario usuarioDeLaSesion;
     private CentralPersistencia centralPersistencia;
 
     // ############################################ Constructor
@@ -20,7 +20,7 @@ public class ControladorGaleria
     {
         centralPersistencia = new CentralPersistencia();
         galeria = new Galeria();
-        usuarioActual = null;
+        usuarioDeLaSesion = null;
     }
 
     // ############################################ Getters & Setters
@@ -30,12 +30,25 @@ public class ControladorGaleria
         return galeria;
     }
 
-    public Usuario getUsuarioActual()
+    public Usuario getusuarioDeLaSesion()
     {
-        return usuarioActual;
+        return usuarioDeLaSesion;
     }
 
     // ############################################ Metodos
+
+    /**
+     * Inicia sesión con los datos de un usuario
+     * @param username
+     * @param password
+     * @return resultado del inicio de sesión
+     */
+    public boolean iniciarSesion( String username, String password )   
+    {
+        boolean result = galeria.iniciarSesion(username, password);
+        usuarioDeLaSesion = galeria.usuarioDeLaSesion;
+        return result;
+    }
 
     /**
      * Guarda el estado actual del programa
@@ -56,7 +69,7 @@ public class ControladorGaleria
     public Galeria cargarGaleria() throws ClassNotFoundException, IOException
     {
         Galeria galeria = centralPersistencia.cargarGaleria( CentralPersistencia.FOLDER + CentralPersistencia.FILENAME );
-        usuarioActual = galeria.usuarioDeLaSesion;
+        usuarioDeLaSesion = galeria.usuarioDeLaSesion;
         return galeria;
     }
 

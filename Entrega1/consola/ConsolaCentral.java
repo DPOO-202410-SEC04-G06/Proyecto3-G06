@@ -1,8 +1,7 @@
 package consola;
 
 import controlador.ControladorGaleria;
-import galeria.Galeria;
-import usuarios.Usuario;
+import usuarios.*;
 
 public class ConsolaCentral extends ConsolaBasica
 {
@@ -14,8 +13,6 @@ public class ConsolaCentral extends ConsolaBasica
 	private static ConsolaOperador cOperador;
 	private static ConsolaUsuarioCorriente cUsuarioCorriente;
 	private static ControladorGaleria controladorGaleria;
-	private static Galeria galeria;
-	private static Usuario usuarioDeLaSesion;
 	
 	// ############################################ Metodos privados
 
@@ -27,12 +24,14 @@ public class ConsolaCentral extends ConsolaBasica
 		String iUsername = this.pedirCadenaAlUsuario("\nIngrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
-		boolean result = galeria.iniciarSesion( iUsername, iPassword );
+		boolean result = controladorGaleria.iniciarSesion( iUsername, iPassword );
 
 		if ( result )
 		{
-			System.out.println( "\nInicio de sesión exitoso" );
-			correrAplicacion();
+			System.out.println( "\nInicio de sesión exitoso: Bienvenido "+controladorGaleria.usuarioDeLaSesion.getNombre() );
+			cUsuarioCorriente = new ConsolaUsuarioCorriente();
+			// TODO correr consola usuario
+			cUsuarioCorriente.correrConsola();
 		}
 
 		System.out.println( "\nNo se encontró el usuario en el sistema" );
@@ -40,10 +39,63 @@ public class ConsolaCentral extends ConsolaBasica
 	}
 
 	/**
+	 * Valida la existencia de un empleado en la galería
+	 * @return El empleado buscado o null de lo contrario
+	 */
+	private Empleado validarEmpleado()
+	{
+		String iUsername = this.pedirCadenaAlUsuario("\nIngrese su usuario (username)");
+		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
+
+		Empleado empleado = controladorGaleria.galeria.buscarEmpleadoUsername(iUsername);
+
+		if ( empleado != null )
+		{
+			controladorGaleria.iniciarSesion( iUsername, iPassword );
+			System.out.println( "\nInicio de sesión exitoso: Bienvenido " + empleado.getNombre() );
+		}
+
+		return empleado;
+	}
+
+	/**
 	 * Metodo para entrar al portal de empleados e iniciar sesión
 	 */
 	private void portalEmpleados()
 	{
+		Empleado empleado = validarEmpleado();
+
+		if ( empleado == null )
+		{
+			System.out.println( "\nNo se encontró el usuario en el sistema" );
+			correrAplicacion();
+		}
+
+		if ( empleado instanceof Administrador )
+		{
+			cAdmin = new ConsolaAdministrador();
+			// TODO correr consola admin
+			cAdmin.correrConsola();
+		}
+		else if ( empleado instanceof Operador )
+		{
+			cOperador = new ConsolaOperador();
+			// TODO correr consola op
+			cOperador.correrConsola();
+		}
+		else if ( empleado instanceof Cajero )
+		{
+			cCajero = new ConsolaCajero();
+			// TODO correr consola teller
+			cCajero.correrConsola();
+		}
+		else
+		{
+			cEmpleado = new ConsolaEmpleadoCorriente();
+			// TODO correr consola staff
+			cEmpleado.correrConsola();
+		}
+
 		correrAplicacion();
 	}
 
@@ -58,12 +110,11 @@ public class ConsolaCentral extends ConsolaBasica
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
-		galeria.crearUsuarioCorriente(iName, iPhone, iUsername, iPassword);
+		controladorGaleria.galeria.crearUsuarioCorriente(iName, iPhone, iUsername, iPassword);
 
 		System.out.println("\nUsuario creado exitosamente");
 
 		correrAplicacion();
-
 	}
 
 	// ############################################ Run
@@ -75,7 +126,7 @@ public class ConsolaCentral extends ConsolaBasica
 		{
 
 			controladorGaleria.cargarGaleria();
-			galeria = controladorGaleria.galeria;
+			controladorGaleria.galeria = controladorGaleria.galeria;
 
 			String[] opcionesMenuPrincipal = { "Iniciar sesión", "Soy empleado", "Crear nuevo usuario", "Salir" };
 
@@ -124,6 +175,5 @@ public class ConsolaCentral extends ConsolaBasica
 		controladorGaleria = new ControladorGaleria();
 		ConsolaCentral ca = new ConsolaCentral();
 		ca.correrAplicacion();
-
 	}
 }
