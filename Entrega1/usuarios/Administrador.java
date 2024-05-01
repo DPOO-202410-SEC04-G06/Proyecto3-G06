@@ -208,6 +208,16 @@ public class Administrador extends Empleado
         {
             galeria.nuevaPiezaEnVenta(pieza);
         }
+
+        ArrayList<String> autores = pieza.getAutores();
+        Iterator<String> iteratorAutores = autores.iterator();
+
+        String autor = iteratorAutores.next();
+        while ( iteratorAutores.hasNext() )
+        {
+            galeria.nuevaPiezaAutor( autor, pieza );
+        }
+
     }
 
     /**
