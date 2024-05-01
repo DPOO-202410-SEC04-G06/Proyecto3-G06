@@ -245,4 +245,34 @@ public class Administrador extends Empleado
         fechasSalidaPiezas.remove(nombrePieza);
     }
 
+    /**
+     * Calcula el valor total de la colección de piezas de un usuario.
+     * @param usuario
+     * @return El valor total de la colección
+     */
+    public int consultarValorColeccionUsuario( UsuarioCorriente usuario )
+    {
+        int total = 0;
+        HashMap< String, Pieza> mapaPiezasActualesusuario = usuario.getPiezasActuales();
+
+        Set<String> setTitulosPiezas = mapaPiezasActualesusuario.keySet();
+
+        Iterator<String> iteratorTitulosPiezas = setTitulosPiezas.iterator();
+
+        String nextKey = iteratorTitulosPiezas.next();
+        while ( iteratorTitulosPiezas.hasNext() )
+        {
+            Pieza nextPieza = mapaPiezasActualesusuario.get(nextKey);
+
+            if ( nextPieza != null )
+            {
+                total +=  nextPieza.getPrecioVenta();
+            }
+
+            nextKey = iteratorTitulosPiezas.next();
+        }
+
+        return total;
+    }   
+
 }
