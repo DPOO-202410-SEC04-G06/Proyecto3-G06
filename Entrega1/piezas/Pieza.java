@@ -2,6 +2,7 @@ package piezas;
 
 import java.util.*;
 
+import pagos.Transaccion;
 import usuarios.UsuarioCorriente;
 
 import java.io.Serializable;
@@ -37,7 +38,8 @@ public abstract class Pieza implements Serializable
      * Llaves: username del usuario
      * Valores: informacion del historial de la pieza
      */
-    private HashMap< String, HashMap< String, Object > > mapaUsuarios;
+    private HashMap< String, UsuarioCorriente > mapaUsuarios;
+    private HashMap<Integer, Transaccion> historialPagosCodigo;
 
     // ############################################ Constructor
 
@@ -51,6 +53,11 @@ public abstract class Pieza implements Serializable
         this.ciudad = ciudad;
         this.pais = pais;
         this.propietario = propietario;
+        this.mapaUsuarios = new HashMap< String, UsuarioCorriente >();
+        this.historialPagosCodigo = new HashMap<Integer, Transaccion>();
+
+        this.mapaUsuarios.put(propietario.getUsername(), propietario);
+        
     }
 
     // ############################################ Getters & Setters
@@ -231,6 +238,26 @@ public abstract class Pieza implements Serializable
         this.precioInicialSubasta = precioInicialSubasta;
     }
 
+    public HashMap< String, UsuarioCorriente > getMapaUsuarios()
+    {
+        return mapaUsuarios;
+    }
+
+    public void setMapaUsuarios( HashMap< String, UsuarioCorriente > mapaUsuarios )
+    {
+        this.mapaUsuarios = mapaUsuarios;
+    }
+
+    public HashMap<Integer, Transaccion> getHistorialPagosCodigo()
+    {
+        return historialPagosCodigo;
+    }
+
+    public void setHistorialPagosCodigo( HashMap<Integer, Transaccion> historialPagosCodigo )
+    {
+        this.historialPagosCodigo = historialPagosCodigo;
+    }
+
     // ############################################ Metodos
 
     /**
@@ -240,6 +267,27 @@ public abstract class Pieza implements Serializable
     public String getNombrePropietario()
     {
         return propietario.getUsername();
+    }
+
+    /**
+     * Busca un usuario en el mapa de usuarios pasados de la pieza, returna null
+     * si no se encuentra en el historial.
+     * @param username
+     * @return usuario buscado
+     */
+    public UsuarioCorriente buscarPropietario(String username)
+    {
+        return mapaUsuarios.get(username);
+    }
+
+    /**
+     * Busca una transacción con el código. retorna null si no la encuentra
+     * @param codigo
+     * @return transaccion buscada
+     */
+    public Transaccion buscarTransaccionCodigo(int codigo)
+    {
+        return historialPagosCodigo.get(codigo);
     }
 
     /**
@@ -258,6 +306,7 @@ public abstract class Pieza implements Serializable
     public void cambiarPropietarioPieza(UsuarioCorriente usuario)
     {
         propietario = usuario;
+        mapaUsuarios.put(usuario.getUsername(), usuario);
     }
 
     /**
