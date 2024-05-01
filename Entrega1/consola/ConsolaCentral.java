@@ -31,7 +31,7 @@ public class ConsolaCentral extends ConsolaBasica
 			System.out.println( "\nInicio de sesión exitoso: Bienvenido "+controladorGaleria.usuarioDeLaSesion.getNombre() );
 			cUsuarioCorriente = new ConsolaUsuarioCorriente();
 			// TODO correr consola usuario
-			cUsuarioCorriente.correrConsola();
+			cUsuarioCorriente.correrConsola( controladorGaleria );
 		}
 
 		System.out.println( "\nNo se encontró el usuario en el sistema" );
@@ -75,25 +75,25 @@ public class ConsolaCentral extends ConsolaBasica
 		{
 			cAdmin = new ConsolaAdministrador();
 			// TODO correr consola admin
-			cAdmin.correrConsola();
+			cAdmin.correrConsola( controladorGaleria );
 		}
 		else if ( empleado instanceof Operador )
 		{
 			cOperador = new ConsolaOperador();
 			// TODO correr consola op
-			cOperador.correrConsola();
+			cOperador.correrConsola( controladorGaleria );
 		}
 		else if ( empleado instanceof Cajero )
 		{
 			cCajero = new ConsolaCajero();
 			// TODO correr consola teller
-			cCajero.correrConsola();
+			cCajero.correrConsola( controladorGaleria );
 		}
 		else
 		{
 			cEmpleado = new ConsolaEmpleadoCorriente();
 			// TODO correr consola staff
-			cEmpleado.correrConsola();
+			cEmpleado.correrConsola( controladorGaleria );
 		}
 
 		correrAplicacion();
