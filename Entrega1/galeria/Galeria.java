@@ -34,6 +34,10 @@ public class Galeria implements Serializable
     private PortalPagos portalPagos;
     private HashMap< String, HashMap< String, String >> piezasEnVenta; // mapa de piezas en venta, con un mapa que contiene el precio y el comprador
     
+
+    private HashMap< String, ArrayList< Pieza > > mapaAutores;
+
+
     // ############################################ Constructor
 
     public Galeria()
@@ -117,9 +121,19 @@ public class Galeria implements Serializable
         this.portalPagos = portalPagos;
     }
 
-    public void getPiezasEnVenta(HashMap< String, HashMap< String, String >> piezasEnVenta)
+    public void setPiezasEnVenta(HashMap< String, HashMap< String, String >> piezasEnVenta)
     {
         this.piezasEnVenta = piezasEnVenta;
+    }
+
+    public HashMap< String , ArrayList<Pieza> > getMapaAutores()
+    {
+        return mapaAutores;
+    } 
+
+    public void setMapaAutores( HashMap< String , ArrayList<Pieza> > mapaAutores )
+    {
+        this.mapaAutores = mapaAutores;
     }
 
     // ############################################ Metodos
@@ -409,5 +423,30 @@ public class Galeria implements Serializable
     public void removerPiezaEnVenta(String nombrePieza)
     {
         piezasEnVenta.remove( nombrePieza );
+    }
+
+    /**
+     * Agrega una nueva pieza a lal mapa de autores.
+     * @param nombreAutor
+     * @param pieza
+     */
+    public void nuevaPiezaAutor( String nombreAutor, Pieza pieza )
+    {
+        if ( !mapaAutores.containsKey(nombreAutor) )
+        {
+            mapaAutores.put(nombreAutor, new ArrayList<Pieza>() );
+        }
+
+        mapaAutores.get(nombreAutor).add(pieza);
+    }
+
+    /**
+     * Retorna las piezas de una autor
+     * @param nombreAutor
+     * @return ArrayList<Pieza> piezas del autor o null si no tiene
+     */
+    public ArrayList<Pieza> getPiezasAutor( String nombreAutor )
+    {
+        return mapaAutores.get(nombreAutor);
     }
 }
