@@ -1,4 +1,4 @@
-package pruebaGaleria;
+package pruebaGaleriaP1;
 
 import java.io.IOException;
 
