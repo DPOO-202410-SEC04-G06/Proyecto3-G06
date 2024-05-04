@@ -1,6 +1,6 @@
 package consola;
 
-public class ConsolaUsuarioCorriente extends ConsolaBasica implements IConsolaUsuarioCorriente 
+public class ConsolaUsuarioCorriente extends ConsolaBasica 
 {
 	// TODO
 
