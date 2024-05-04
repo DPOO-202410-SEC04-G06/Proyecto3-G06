@@ -49,6 +49,15 @@ public class ControladorGaleria
         usuarioDeLaSesion = galeria.usuarioDeLaSesion;
         return result;
     }
+    
+    /**
+     * Cierra la sesion actual
+     */
+    public void cerrarSesion()
+    {
+    	galeria.cerrarSesion();
+    	usuarioDeLaSesion = null;
+    }
 
     /**
      * Guarda el estado actual del programa

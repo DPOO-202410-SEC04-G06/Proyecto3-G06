@@ -3,9 +3,9 @@ package consola;
 import java.util.*;
 
 import controlador.ControladorGaleria;
+import pagos.PortalPagos;
 import piezas.*;
-import usuarios.Administrador;
-import usuarios.UsuarioCorriente;
+import usuarios.*;
 
 public class ConsolaUsuarioCorriente extends ConsolaBasica 
 {
@@ -221,48 +221,152 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		
 		int precioPieza = this.pedirEnteroAlUsuario( "\nPor favor introduzca el precio de la pieza, -1 si no la desea vender" );
 		
-		int anio = this.pedirEnteroAlUsuario( "\nPor favor ingrese el año de salida de la pieza" );
-		int mes = this.pedirEnteroAlUsuario( "\nPor favor ingrese el mes de salida de la pieza" );
-		int dia = this.pedirEnteroAlUsuario( "\nPor favor ingrese el dia de salida de la pieza" );
+		int anio = this.pedirEnteroAlUsuario( "Por favor ingrese el año de salida de la pieza" );
+		int mes = this.pedirEnteroAlUsuario( "Por favor ingrese el mes de salida de la pieza" );
+		int dia = this.pedirEnteroAlUsuario( "Por favor ingrese el dia de salida de la pieza" );
 		
 		@SuppressWarnings("deprecation")
 		Date date = new Date( anio, mes, dia );
 		
 		usuario.consignarPieza( pieza , precioPieza, date, (Administrador) controladorGaleria.galeria.buscarEmpleadoUsername( nombreAdmin ));
 		
-		System.out.println( "Pieza consignada adecuadamente." );
+		System.out.println( "\nPieza consignada adecuadamente." );
 		
 		correrConsola();
 	}
 	
+	/**
+	 * Realiza una oferta para adquirir una pieza
+	 */
 	private void comprarPieza()
 	{
-		
+		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+		usuario.aplicarComprarPieza(nombrePieza, controladorGaleria.galeria);
 		correrConsola();
 	}
 	
+	/**
+	 * Realiza una nueva oferta a una pieza en subasta
+	 */
 	private void realizarOferta()
 	{
+		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+		int oferta = this.pedirEnteroAlUsuario("Ingrese la oferta que desea realizar");
+		boolean resultado = usuario.nuevaOfertaSubasta(nombrePieza, oferta, (Operador) controladorGaleria.galeria.buscarEmpleadoUsername( nombreOperador ));
+		
+		if ( resultado )
+		{
+			System.out.println( "\nOferta registrada exitosamente" );
+		}
+		else
+		{
+			System.out.println( "\nError al registrar la oferta. Verifique si tiene autorizacion o si la pieza esta en subasta" );
+		}
 		
 		correrConsola();
 	}
 	
+	/**
+	 * Consulta una pieza
+	 */
 	private void consultarPieza()
 	{
-		
+		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
+		if ( pieza != null )
+		{
+			System.out.println("\nPieza encontrada");
+			// TODO terminar la consulta
+		}
+		else
+		{
+			System.out.println("\nPieza no fue encontrada");
+		}
 		correrConsola();	
 	}
 	
+	/**
+	 * Consulta informacion acerca del historial de una pieza
+	 */
 	private void consultarHistorialPieza()
 	{
+		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
+		if ( pieza != null )
+		{
+			System.out.println("\nPieza encontrada");
+			// TODO
+		}
+		else
+		{
+			System.out.println("\nPieza no fue encontrada");
+		}
 		
 		correrConsola();
 	}
 	
+	/**
+	 * Consulta el historial de un artista
+	 */
 	private void consultarHistorialArtista()
 	{
+		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del artista");
+		HashMap<String, ArrayList<Pieza>> mapaArtistas = controladorGaleria.galeria.getMapaAutores();
+		
+		if ( mapaArtistas != null )
+		{
+			ArrayList<Pieza> autor = mapaArtistas.get(nombreArtista);
+			if ( autor != null )
+			{
+				System.out.println("\nAutor encontrado");
+				// TODO
+			}
+			else
+			{
+				System.out.println("\nAutor no fue encontrado");
+			}
+		}
+		else
+		{
+			System.out.println("\nAutor no fue encontrado");
+		}
 		
 		correrConsola();
+	}
+	
+	/**
+	 * Cambia el metodo de pago del usuario
+	 */
+	private void cambiarMetodoPago()
+	{
+		int metodoActual = usuario.getMetodoPago();
+		
+		System.out.println("\nMetodo de pago actual" + metodoActual );
+		
+		String[] opcionesMetodoPago = { "Credito" , "Efectivo", "Transferencia" };
+		int iCambiarMetodo = this.mostrarMenu("Elija un nuevo metodo de pago", opcionesMetodoPago);
+		
+		switch ( iCambiarMetodo )
+		{
+			case 1: // Credito
+			{
+				usuario.setMetodoPago(PortalPagos.CREDITO);
+				break;
+			}
+			case 2: // Efectivo
+			{
+				usuario.setMetodoPago(PortalPagos.EFECTIVO);
+				break;
+			}
+			case 3: // Transferencia
+			{
+				usuario.setMetodoPago(PortalPagos.TRANSFERENCIA);
+				break;
+			}
+		}
+		
+		System.out.println("\nMetodo de pago cambiado adecuadamente");
+		
 	}
 	
 	// ############################################ Run
@@ -271,7 +375,8 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	{
 		
 		String[] opcionesMenuUsuario = { "Consignar pieza", "Comprar pieza", "Realizar oferta", "Consultar pieza",
-										"Consultar historial pieza", "Consultar historial artista"};
+										"Consultar historial pieza", "Consultar historial artista", "Cambiar metodo de pago",
+										"Cerrar sesion"};
 		
 		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
 		
@@ -310,6 +415,18 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 			case 7: // Consultar historial artista
 			{
 				consultarHistorialArtista();
+				break;
+			}
+			
+			case 8: // Cambiar metodo de pago
+			{
+				cambiarMetodoPago();
+				break;
+			}
+			
+			case 9: // Cerrar sesion
+			{
+				controladorGaleria.cerrarSesion();
 				break;
 			}
 			
