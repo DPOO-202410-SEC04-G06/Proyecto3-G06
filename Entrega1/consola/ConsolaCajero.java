@@ -14,10 +14,4 @@ public class ConsolaCajero extends ConsolaEmpleado
 
 	// ############################################ Main
 
-	public static void main(String[] args) 
-	{
-		
-        
-
-	}
 }
