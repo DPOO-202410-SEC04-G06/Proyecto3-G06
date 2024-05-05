@@ -20,8 +20,9 @@ public class ConsolaCentral extends ConsolaBasica
 
 	/**
 	 * Metodo para iniciar sesión de un usuario corriente
+	 * @throws IOException 
 	 */
-	private void iniciarSesion()
+	private void iniciarSesion() throws IOException
 	{
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
