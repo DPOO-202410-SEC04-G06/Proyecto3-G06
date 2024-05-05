@@ -1,10 +1,12 @@
 package consola;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import controlador.ControladorGaleria;
 import galeria.*;
+import pagos.*;
 import piezas.*;
 import usuarios.*;
 
@@ -44,8 +46,9 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	/**
 	 * Actualiza el estado de una pieza en la galeria. El empleado corriente solamente podra actualizar 
 	 * el estado a bodega o a exposicion
+	 * @throws IOException 
 	 */
-	protected void actualizarEstadoPieza()
+	protected void actualizarEstadoPieza() throws IOException
 	{
 		int newState;
 		
@@ -65,13 +68,15 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		}
 		
 		usuario.actualizarEstadoPieza(nombrePieza, newState, controladorGaleria.galeria.getInventarioPiezas());
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Cambia el propietario de una pieza actualmente en la galeria
+	 * @throws IOException 
 	 */
-	protected void cambiarPropietarioPieza()
+	protected void cambiarPropietarioPieza() throws IOException
 	{
 		String nombreUsuario = this.pedirCadenaAlUsuario("Digite el nombre del nuevo propietario");
 		UsuarioCorriente propietario = controladorGaleria.galeria.buscarUsuarioCorrienteUsername(nombreUsuario);
@@ -92,29 +97,43 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		}
 		
 		usuario.cambiarPropietarioPieza(nombrePieza, pieza, propietario);
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
-	 * Genera una nueva transaccion en el sistema
-	 */
-	protected void nuevaTransaccion()
-	{
-		//TODO
-	}
-	
-	/**
 	 * Busca una transaccion en el sistema
+	 * @throws IOException 
 	 */
-	protected void buscarTransaccion()
+	protected void buscarTransaccion() throws IOException
 	{
-		//TODO
+		String[] opcionesBuscar = { "Buscar por codigo", "Buscar por fecha" };
+		int iBuscarT = this.mostrarMenu("Seleccione una opcion", opcionesBuscar);
+		
+		if (iBuscarT == 1)
+		{
+			int codigo = this.pedirEnteroAlUsuario("Ingrese el codigo de la transaccion");
+			Transaccion transaccion = usuario.buscarTransaccionCodigo(codigo, controladorGaleria.galeria.getPortalPagos());
+			if ( transaccion == null )
+			{
+				System.out.println( "Transaccion no encontrada, vuelva a intentarlo");
+				correrConsola();
+			}
+			else
+			{
+			System.out.println( "Transaccion encontrada");
+			// TODO
+			}
+		}
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+		correrConsola();
 	}
 	
 	/**
 	 * Consulta una pieza
+	 * @throws IOException 
 	 */
-	protected void consultarPieza()
+	protected void consultarPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
@@ -127,13 +146,15 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		{
 			System.out.println("Pieza no fue encontrada");
 		}
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();	
 	}
 	
 	/**
 	 * Consulta informacion acerca del historial de una pieza
+	 * @throws IOException 
 	 */
-	protected void consultarHistorialPieza()
+	protected void consultarHistorialPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
@@ -146,14 +167,15 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		{
 			System.out.println("Pieza no fue encontrada");
 		}
-		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Consulta el historial de un artista
+	 * @throws IOException 
 	 */
-	protected void consultarHistorialArtista()
+	protected void consultarHistorialArtista() throws IOException
 	{
 		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del artista");
 		HashMap<String, ArrayList<Pieza>> mapaArtistas = controladorGaleria.galeria.getMapaAutores();
@@ -175,7 +197,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		{
 			System.out.println("Autor no fue encontrado");
 		}
-		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 }

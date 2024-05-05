@@ -1,5 +1,7 @@
 package consola;
 
+import java.io.IOException;
+
 import controlador.ControladorGaleria;
 import usuarios.*;
 
@@ -100,8 +102,9 @@ public class ConsolaCentral extends ConsolaBasica
 
 	/**
 	 * Metodo para crear un nuevo usuario corriente
+	 * @throws IOException 
 	 */
-	private void crearNuevoUsuario()
+	private void crearNuevoUsuario() throws IOException
 	{
 
 		String iName = this.pedirCadenaAlUsuario("Ingrese su nombre");
@@ -110,7 +113,7 @@ public class ConsolaCentral extends ConsolaBasica
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
 		controladorGaleria.galeria.crearUsuarioCorriente(iName, iPhone, iUsername, iPassword);
-
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		System.out.println("\nUsuario creado exitosamente");
 
 		correrAplicacion();

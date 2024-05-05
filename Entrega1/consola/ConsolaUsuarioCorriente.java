@@ -1,5 +1,6 @@
 package consola;
 
+import java.io.IOException;
 import java.util.*;
 
 import controlador.ControladorGaleria;
@@ -214,8 +215,9 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	
 	/**
 	 * Consigna una nueva pieza a la galeria
+	 * @throws IOException 
 	 */
-	private void consignarPieza()
+	private void consignarPieza() throws IOException
 	{
 		Pieza pieza = nuevaPieza();
 		
@@ -232,23 +234,27 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		
 		System.out.println( "Pieza consignada adecuadamente." );
 		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Realiza una oferta para adquirir una pieza
+	 * @throws IOException 
 	 */
-	private void comprarPieza()
+	private void comprarPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
 		usuario.aplicarComprarPieza(nombrePieza, controladorGaleria.galeria);
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Realiza una nueva oferta a una pieza en subasta
+	 * @throws IOException 
 	 */
-	private void realizarOferta()
+	private void realizarOferta() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
 		int oferta = this.pedirEnteroAlUsuario("Ingrese la oferta que desea realizar");
@@ -262,14 +268,15 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		{
 			System.out.println( "Error al registrar la oferta. Verifique si tiene autorizacion o si la pieza esta en subasta" );
 		}
-		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Consulta una pieza
+	 * @throws IOException 
 	 */
-	private void consultarPieza()
+	private void consultarPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
@@ -282,13 +289,15 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		{
 			System.out.println("Pieza no fue encontrada");
 		}
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();	
 	}
 	
 	/**
 	 * Consulta informacion acerca del historial de una pieza
+	 * @throws IOException 
 	 */
-	private void consultarHistorialPieza()
+	private void consultarHistorialPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
@@ -301,14 +310,15 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		{
 			System.out.println("Pieza no fue encontrada");
 		}
-		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Consulta el historial de un artista
+	 * @throws IOException 
 	 */
-	private void consultarHistorialArtista()
+	private void consultarHistorialArtista() throws IOException
 	{
 		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del artista");
 		HashMap<String, ArrayList<Pieza>> mapaArtistas = controladorGaleria.galeria.getMapaAutores();
@@ -330,14 +340,15 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		{
 			System.out.println("Autor no fue encontrado");
 		}
-		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 	
 	/**
 	 * Cambia el metodo de pago del usuario
+	 * @throws IOException 
 	 */
-	private void cambiarMetodoPago()
+	private void cambiarMetodoPago() throws IOException
 	{
 		int metodoActual = usuario.getMetodoPago();
 		
@@ -364,14 +375,14 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 				break;
 			}
 		}
-		
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		System.out.println("Metodo de pago cambiado adecuadamente");
 		
 	}
 	
 	// ############################################ Run
 	
-	public void correrConsola( )
+	public void correrConsola( ) throws IOException
 	{
 		
 		String[] opcionesMenuUsuario = { "Consignar pieza", "Comprar pieza", "Realizar oferta", "Consultar pieza",
