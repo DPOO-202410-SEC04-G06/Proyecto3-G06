@@ -21,19 +21,19 @@ public class ConsolaCentral extends ConsolaBasica
 	 */
 	private void iniciarSesion()
 	{
-		String iUsername = this.pedirCadenaAlUsuario("\nIngrese su usuario (username)");
+		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
 		boolean result = controladorGaleria.iniciarSesion( iUsername, iPassword );
 
 		if ( result )
 		{
-			System.out.println( "\nInicio de sesión exitoso: Bienvenido "+controladorGaleria.usuarioDeLaSesion.getNombre() );
+			System.out.println( "Inicio de sesión exitoso: Bienvenido "+controladorGaleria.usuarioDeLaSesion.getNombre() );
 			cUsuarioCorriente = new ConsolaUsuarioCorriente(controladorGaleria);
 			cUsuarioCorriente.correrConsola( );
 		}
 
-		System.out.println( "\nNo se encontró el usuario en el sistema" );
+		System.out.println( "No se encontró el usuario en el sistema" );
 		correrAplicacion();
 	}
 
@@ -43,7 +43,7 @@ public class ConsolaCentral extends ConsolaBasica
 	 */
 	private Empleado validarEmpleado()
 	{
-		String iUsername = this.pedirCadenaAlUsuario("\nIngrese su usuario (username)");
+		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
 		Empleado empleado = controladorGaleria.galeria.buscarEmpleadoUsername(iUsername);
@@ -51,7 +51,7 @@ public class ConsolaCentral extends ConsolaBasica
 		if ( empleado != null )
 		{
 			controladorGaleria.iniciarSesion( iUsername, iPassword );
-			System.out.println( "\nInicio de sesión exitoso: Bienvenido " + empleado.getNombre() );
+			System.out.println( "Inicio de sesión exitoso: Bienvenido " + empleado.getNombre() );
 		}
 
 		return empleado;
@@ -66,7 +66,7 @@ public class ConsolaCentral extends ConsolaBasica
 
 		if ( empleado == null )
 		{
-			System.out.println( "\nNo se encontró el usuario en el sistema" );
+			System.out.println( "No se encontró el usuario en el sistema" );
 			correrAplicacion();
 		}
 
@@ -104,7 +104,7 @@ public class ConsolaCentral extends ConsolaBasica
 	private void crearNuevoUsuario()
 	{
 
-		String iName = this.pedirCadenaAlUsuario("\nIngrese su nombre");
+		String iName = this.pedirCadenaAlUsuario("Ingrese su nombre");
 		String iPhone = this.pedirCadenaAlUsuario("Ingrese su número de teléfono");
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");

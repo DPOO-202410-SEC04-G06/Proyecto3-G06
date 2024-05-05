@@ -219,7 +219,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	{
 		Pieza pieza = nuevaPieza();
 		
-		int precioPieza = this.pedirEnteroAlUsuario( "\nPor favor introduzca el precio de la pieza, -1 si no la desea vender" );
+		int precioPieza = this.pedirEnteroAlUsuario( "Por favor introduzca el precio de la pieza, -1 si no la desea vender" );
 		
 		int anio = this.pedirEnteroAlUsuario( "Por favor ingrese el año de salida de la pieza" );
 		int mes = this.pedirEnteroAlUsuario( "Por favor ingrese el mes de salida de la pieza" );
@@ -230,7 +230,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		
 		usuario.consignarPieza( pieza , precioPieza, date, (Administrador) controladorGaleria.galeria.buscarEmpleadoUsername( nombreAdmin ));
 		
-		System.out.println( "\nPieza consignada adecuadamente." );
+		System.out.println( "Pieza consignada adecuadamente." );
 		
 		correrConsola();
 	}
@@ -256,11 +256,11 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		
 		if ( resultado )
 		{
-			System.out.println( "\nOferta registrada exitosamente" );
+			System.out.println( "Oferta registrada exitosamente" );
 		}
 		else
 		{
-			System.out.println( "\nError al registrar la oferta. Verifique si tiene autorizacion o si la pieza esta en subasta" );
+			System.out.println( "Error al registrar la oferta. Verifique si tiene autorizacion o si la pieza esta en subasta" );
 		}
 		
 		correrConsola();
@@ -275,12 +275,12 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
 		if ( pieza != null )
 		{
-			System.out.println("\nPieza encontrada");
+			System.out.println("Pieza encontrada");
 			// TODO terminar la consulta
 		}
 		else
 		{
-			System.out.println("\nPieza no fue encontrada");
+			System.out.println("Pieza no fue encontrada");
 		}
 		correrConsola();	
 	}
@@ -294,12 +294,12 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
 		if ( pieza != null )
 		{
-			System.out.println("\nPieza encontrada");
+			System.out.println("Pieza encontrada");
 			// TODO
 		}
 		else
 		{
-			System.out.println("\nPieza no fue encontrada");
+			System.out.println("Pieza no fue encontrada");
 		}
 		
 		correrConsola();
@@ -318,17 +318,17 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 			ArrayList<Pieza> autor = mapaArtistas.get(nombreArtista);
 			if ( autor != null )
 			{
-				System.out.println("\nAutor encontrado");
+				System.out.println("Autor encontrado");
 				// TODO
 			}
 			else
 			{
-				System.out.println("\nAutor no fue encontrado");
+				System.out.println("Autor no fue encontrado");
 			}
 		}
 		else
 		{
-			System.out.println("\nAutor no fue encontrado");
+			System.out.println("Autor no fue encontrado");
 		}
 		
 		correrConsola();
@@ -341,7 +341,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	{
 		int metodoActual = usuario.getMetodoPago();
 		
-		System.out.println("\nMetodo de pago actual" + metodoActual );
+		System.out.println("Metodo de pago actual" + metodoActual );
 		
 		String[] opcionesMetodoPago = { "Credito" , "Efectivo", "Transferencia" };
 		int iCambiarMetodo = this.mostrarMenu("Elija un nuevo metodo de pago", opcionesMetodoPago);
@@ -365,7 +365,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 			}
 		}
 		
-		System.out.println("\nMetodo de pago cambiado adecuadamente");
+		System.out.println("Metodo de pago cambiado adecuadamente");
 		
 	}
 	
