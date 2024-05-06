@@ -74,7 +74,7 @@ public class ConsolaCentral extends ConsolaBasica
 		String[] opciones = { "Administrador", "Cajero", "Operador", "Empleado corriente" };
 
 		int input = this.mostrarMenu( "Elija el tipo de empleado", opciones);
-		
+
 		int iRol;
 		switch ( input )
 		{
@@ -141,25 +141,21 @@ public class ConsolaCentral extends ConsolaBasica
 		if ( empleado instanceof Administrador )
 		{
 			cAdmin = new ConsolaAdministrador(controladorGaleria);
-			// TODO correr consola admin
 			cAdmin.correrConsola( );
 		}
 		else if ( empleado instanceof Operador )
 		{
 			cOperador = new ConsolaOperador(controladorGaleria);
-			// TODO correr consola op
 			cOperador.correrConsola( );
 		}
 		else if ( empleado instanceof Cajero )
 		{
 			cCajero = new ConsolaCajero(controladorGaleria);
-			// TODO correr consola teller
 			cCajero.correrConsola( );
 		}
 		else
 		{
 			cEmpleado = new ConsolaEmpleadoCorriente(controladorGaleria);
-			// TODO correr consola staff
 			cEmpleado.correrConsola();
 		}
 
