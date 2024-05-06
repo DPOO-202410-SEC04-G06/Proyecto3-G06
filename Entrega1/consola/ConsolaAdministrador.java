@@ -63,11 +63,13 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 			case 5: // Consultar historial de una pieza
 			{
 				this.consultarHistorialPieza();
+				break;
 			}
 			
 			case 6: // Consultar historial de un artista
 			{
 				this.consultarHistorialArtista();
+				break;
 			}
 
 

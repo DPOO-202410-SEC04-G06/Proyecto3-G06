@@ -64,4 +64,14 @@ public class Cajero extends Empleado
         portalPagos.agregarTransaccionHistorial(transaccion, fecha, codigoTransaccion);
     }
 
+    /**
+     * Actualiza la pila de transacciones pendientes
+     * @return La transaccion pendiente
+     */
+    public Transaccion nextTransaccionPendiente()
+    {
+        Transaccion nextTransaccion = this.transaccionesPendientes.get(0);
+        this.transaccionesPendientes.remove(nextTransaccion);
+        return nextTransaccion;
+    }
 }
