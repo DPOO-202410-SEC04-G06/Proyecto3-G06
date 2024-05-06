@@ -11,11 +11,6 @@ public class ConsolaCajero extends ConsolaEmpleado
 
 	// ############################################ Atributos
 
-	ControladorGaleria controladorGaleria;
-	String nombreUsuario;
-	String nombreAdmin;
-	String nombreCajero;
-	String nombreOperador;
 	Cajero usuario;
 	
 	// ############################################ Constructor

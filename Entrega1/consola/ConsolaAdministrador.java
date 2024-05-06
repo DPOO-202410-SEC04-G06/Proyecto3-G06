@@ -11,11 +11,6 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
     // ############################################ Atributos
 
-	ControladorGaleria controladorGaleria;
-	String nombreUsuario;
-	String nombreAdmin;
-	String nombreCajero;
-	String nombreOperador;
 	Administrador usuario;
 	
 	// ############################################ Constructor
@@ -35,7 +30,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 		
 		String[] opcionesMenuUsuario = { "Actualizar estado de una pieza", "Cambiar propietario de una pieza",
 										"Buscar transaccion", "Consultar pieza", "Consultar historial de una pieza",
-										"Consultar historial de un artista", "Cerrar sesion"};
+										"Consultar historial de un artista", "Verificar usuario(s)", ""};
 		
 		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
 		
@@ -74,6 +69,8 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 			{
 				this.consultarHistorialArtista();
 			}
+
+
 			
 			case 7: // Cerrar sesion
 			{

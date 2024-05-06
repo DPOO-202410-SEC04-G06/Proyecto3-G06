@@ -111,6 +111,17 @@ public class Administrador extends Empleado
         usuario.setVerifVendedor(true);
     }
 
+    /**
+     *  Actualiza la pila de vendedores pendientes
+     * @return El username del usuario pendiente
+     */
+    public String nextVendedorPendiente()
+    {
+        String nextUsername = this.verificacionesConsignacionPendientes.get(0);
+        verificacionesConsignacionPendientes.remove(nextUsername);
+        return nextUsername;
+    }
+
 	/**
      * Verifica un comprador de una pieza y lo actualiza
      * @param username
@@ -121,6 +132,17 @@ public class Administrador extends Empleado
     {
         usuario.setVerifComprador(true);
         usuario.setMontoMax(montoMax);
+    }
+
+    /**
+     * Actualiza la pila de compradores pendientes
+     * @return El username del usuario pendiente
+     */
+    public String nextCompradorPendiente()
+    {
+        String nextUsername = this.verificacionesCompraPiezas.get(0);
+        verificacionesCompraPiezas.remove(nextUsername);
+        return nextUsername;
     }
 
     /**
@@ -183,6 +205,17 @@ public class Administrador extends Empleado
     public void verificarOfertaSubasta(String username, Operador operadorGaleria)
     {
         operadorGaleria.nuevoUsuarioVerificadoSubasta( username );
+    }
+
+    /**
+     * Actualiza la pila de ofertas pendientes para una subasta
+     * @return El username de la oferta pendiente 
+     */
+    public String nextOfertaSubasta()
+    {
+        String nextUsername = this.verificacionesUsuarioSubasta.get(0);
+        verificacionesUsuarioSubasta.remove(nextUsername);
+        return nextUsername;
     }
 
     /**
