@@ -38,8 +38,9 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	
 	/**
 	 * Metodo principal para correr la consola del usuario
+	 * @throws IOException 
 	 */
-	public abstract void correrConsola();
+	public abstract void correrConsola() throws IOException;
 	
 	// ############################################ Metodos
 	

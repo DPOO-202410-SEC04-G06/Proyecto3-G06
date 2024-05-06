@@ -59,17 +59,35 @@ public class ConsolaCentral extends ConsolaBasica
 
 		return empleado;
 	}
+	
+	/**
+	 * Crea un nuevo empleado en la galeria
+	 */
+	private void crearEmpleado()
+	{
+		//TODO
+	}
 
 	/**
 	 * Metodo para entrar al portal de empleados e iniciar sesión
+	 * @throws IOException 
 	 */
-	private void portalEmpleados()
+	private void portalEmpleados() throws IOException
 	{
 		Empleado empleado = validarEmpleado();
 
 		if ( empleado == null )
 		{
 			System.out.println( "No se encontró el usuario en el sistema" );
+			
+			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea crear un nuevo empleado? (Para pruebas)");
+			
+			if ( confirmacion )
+			{
+				crearEmpleado();
+				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+			}
+			
 			correrAplicacion();
 		}
 
