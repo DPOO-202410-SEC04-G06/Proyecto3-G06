@@ -62,10 +62,57 @@ public class ConsolaCentral extends ConsolaBasica
 	
 	/**
 	 * Crea un nuevo empleado en la galeria
+	 * @throws IOException 
 	 */
-	private void crearEmpleado()
+	private void crearEmpleado() throws IOException
 	{
-		//TODO
+		String iName = this.pedirCadenaAlUsuario("Ingrese su nombre");
+		String iPhone = this.pedirCadenaAlUsuario("Ingrese su número de teléfono");
+		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
+		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
+
+		String[] opciones = { "Administrador", "Cajero", "Operador", "Empleado corriente" };
+
+		int input = this.mostrarMenu( "Elija el tipo de empleado", opciones);
+		
+		int iRol;
+		switch ( input )
+		{
+			case 1:
+			{
+				iRol = Empleado.ADMIN;
+				break;
+			}
+
+			case 2:
+			{
+				iRol = Empleado.CAJERO;
+				break;
+			}
+
+			case 3:
+			{
+				iRol = Empleado.OP;
+				break;
+			}
+
+			case 4:
+			{
+				iRol = Empleado.CORRIENTE;
+				break;
+			}
+
+			default:
+			{
+				iRol = Empleado.CORRIENTE;
+				break;
+			}
+		}
+
+		controladorGaleria.galeria.crearEmpleado( iName, iPhone, iUsername, iPassword, iRol );
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+		System.out.println("\nUsuario creado exitosamente");
+		correrAplicacion();
 	}
 
 	/**
