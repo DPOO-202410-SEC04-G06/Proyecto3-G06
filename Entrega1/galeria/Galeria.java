@@ -169,6 +169,7 @@ public class Galeria implements Serializable
     public void crearUsuarioCorriente(String nombre, String telefono, String username, String password)
     {
         UsuarioCorriente nuevoUsuario = new UsuarioCorriente(nombre, telefono, username, password);
+        mapaUsernamesPasswords.put(username, password);
         mapaUsuariosCorrientes.put(username, nuevoUsuario);
     }
 
