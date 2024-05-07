@@ -83,7 +83,7 @@ public class ConsolaCajero extends ConsolaEmpleado
 										"Consultar historial de un artista", "Registrar transaccion en el sistema",
 										"Cerrar sesion"};
 		
-		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
+		int iInput = this.mostrarMenu( "Menu de cajero. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
 		switch ( iInput )
 		{

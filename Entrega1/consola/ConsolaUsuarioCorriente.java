@@ -587,7 +587,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 										"Consultar historial pieza", "Consultar historial artista", "Cambiar metodo de pago",
 										"Cerrar sesion"};
 		
-		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
+		int iInput = this.mostrarMenu( "Menu de usuario. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
 		switch ( iInput )
 		{

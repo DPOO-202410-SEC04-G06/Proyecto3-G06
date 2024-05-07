@@ -96,7 +96,7 @@ public class ConsolaOperador extends ConsolaEmpleado
 										"Consultar historial de un artista", "Empezar una nueva subasta",
 										"Finalizar subasta activa", "Cerrar sesion"};
 		
-		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
+		int iInput = this.mostrarMenu( "Menu de operador. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
 		switch ( iInput )
 		{

@@ -32,7 +32,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 										"Buscar transaccion", "Consultar pieza", "Consultar historial de una pieza",
 										"Consultar historial de un artista", "Verificar usuario(s)", ""};
 		
-		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
+		int iInput = this.mostrarMenu( "Menu de administrador. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
 		switch ( iInput )
 		{

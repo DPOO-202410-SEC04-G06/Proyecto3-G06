@@ -31,7 +31,7 @@ public class ConsolaEmpleadoCorriente extends ConsolaEmpleado
 										"Buscar transaccion", "Consultar pieza", "Consultar historial de una pieza",
 										"Consultar historial de un artista", "Cerrar sesion"};
 		
-		int iInput = this.mostrarMenu( "Menu de " + nombreUsuario , opcionesMenuUsuario );
+		int iInput = this.mostrarMenu( "Menu de empleado. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
 		switch ( iInput )
 		{
