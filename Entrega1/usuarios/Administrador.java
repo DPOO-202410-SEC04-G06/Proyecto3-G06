@@ -20,6 +20,7 @@ public class Administrador extends Empleado
     private ArrayList< String > verificacionesUsuarioSubasta; // verif subasta
     private ArrayList< Pieza > piezasDeEntrada;
     private HashMap< String, Date > fechasSalidaPiezas;
+    private ArrayList< String > comprasPendientes;// titulos de la pieza
     private ArrayList< Pieza > piezasDeSalida;
 
     // ############################################ Constructor
@@ -58,6 +59,11 @@ public class Administrador extends Empleado
         return piezasDeEntrada;
     }
 
+    public ArrayList<String> getComprasPendientes()
+    {
+        return comprasPendientes;
+    }
+
     public HashMap<String, Date> getFechasSalidaPiezas()
     {
         return fechasSalidaPiezas;
@@ -88,6 +94,11 @@ public class Administrador extends Empleado
         this.piezasDeEntrada = piezasDeEntrada;
     }
 
+    public void setComprasPendientes(ArrayList<String> comprasPendientes) 
+    {
+		this.comprasPendientes = comprasPendientes;
+	}
+
     public void setFechasSalidaPiezas(HashMap< String, Date > fechasSalidaPiezas)
     {
         this.fechasSalidaPiezas = fechasSalidaPiezas;
@@ -117,9 +128,13 @@ public class Administrador extends Empleado
      */
     public String nextVendedorPendiente()
     {
-        String nextUsername = this.verificacionesConsignacionPendientes.get(0);
-        verificacionesConsignacionPendientes.remove(nextUsername);
-        return nextUsername;
+        if ( !verificacionesConsignacionPendientes.isEmpty() )
+        {
+            String nextUsername = this.verificacionesConsignacionPendientes.get(0);
+            verificacionesConsignacionPendientes.remove(nextUsername);
+            return nextUsername;
+        }
+        return null;
     }
 
 	/**
@@ -140,9 +155,13 @@ public class Administrador extends Empleado
      */
     public String nextCompradorPendiente()
     {
-        String nextUsername = this.verificacionesCompraPiezas.get(0);
-        verificacionesCompraPiezas.remove(nextUsername);
-        return nextUsername;
+        if ( !verificacionesCompraPiezas.isEmpty() )
+        {
+            String nextUsername = this.verificacionesCompraPiezas.get(0);
+            verificacionesCompraPiezas.remove(nextUsername);
+            return nextUsername;
+        }
+        return null;
     }
 
     /**
@@ -184,6 +203,17 @@ public class Administrador extends Empleado
         }
     }
 
+    public String nextAdquisicion()
+    {
+        if ( !comprasPendientes.isEmpty() )
+        {
+            String next = this.getComprasPendientes().get(0);
+            comprasPendientes.remove(next);
+            return next;
+        }
+        return null;
+    }
+
     /**
      * Actualiza el monto maximo de compra de un usuario
      * @param username
@@ -213,9 +243,13 @@ public class Administrador extends Empleado
      */
     public String nextOfertaSubasta()
     {
-        String nextUsername = this.verificacionesUsuarioSubasta.get(0);
-        verificacionesUsuarioSubasta.remove(nextUsername);
-        return nextUsername;
+        if ( !verificacionesUsuarioSubasta.isEmpty() )
+        {
+            String nextUsername = this.verificacionesUsuarioSubasta.get(0);
+            verificacionesUsuarioSubasta.remove(nextUsername);
+            return nextUsername;
+        }
+        return null;
     }
 
     /**
@@ -259,9 +293,13 @@ public class Administrador extends Empleado
      */
     public Pieza nextPIn()
     {
-        Pieza next = this.piezasDeEntrada.get(0);
-        piezasDeEntrada.remove(next);
-        return next;
+        if ( !piezasDeEntrada.isEmpty() )
+        {
+            Pieza next = this.piezasDeEntrada.get(0);
+            piezasDeEntrada.remove(next);
+            return next;
+        }
+        return null;
     }
 
     /**
@@ -305,9 +343,12 @@ public class Administrador extends Empleado
      */
     public Pieza nextPOut()
     {
-        Pieza next = this.piezasDeSalida.get(0);
-        piezasDeSalida.remove(next);
-        return next;
+        if ( !piezasDeSalida.isEmpty() )
+        {    Pieza next = this.piezasDeSalida.get(0);
+            piezasDeSalida.remove(next);
+            return next;
+        }
+        return null;
     }
 
     /**

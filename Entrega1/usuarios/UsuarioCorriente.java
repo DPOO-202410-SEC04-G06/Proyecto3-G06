@@ -242,6 +242,7 @@ public class UsuarioCorriente extends Usuario
     public void aplicarComprarPieza( String nombrePieza, Galeria galeria, Administrador administrador )
     {
         administrador.getVerificacionesConsignacionPendientes().add( getUsername() );
+        administrador.getComprasPendientes().add(nombrePieza);
         galeria.bloquearPiezaEnVenta( nombrePieza, getUsername() );
     }
 

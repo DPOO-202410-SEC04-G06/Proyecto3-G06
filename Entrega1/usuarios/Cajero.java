@@ -70,8 +70,12 @@ public class Cajero extends Empleado
      */
     public Transaccion nextTransaccionPendiente()
     {
-        Transaccion nextTransaccion = this.transaccionesPendientes.get(0);
-        this.transaccionesPendientes.remove(nextTransaccion);
-        return nextTransaccion;
+        if ( !transaccionesPendientes.isEmpty() )
+        {   
+            Transaccion nextTransaccion = this.transaccionesPendientes.get(0);
+            this.transaccionesPendientes.remove(nextTransaccion);
+            return nextTransaccion;
+        }
+        return null;
     }
 }

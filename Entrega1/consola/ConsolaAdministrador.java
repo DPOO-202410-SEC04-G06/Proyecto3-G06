@@ -240,6 +240,16 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
+
+	/**
+	 * Registra una nueva adquisicion
+	 * @throws IOException
+	 */
+	private void registrarAdquisicion() throws IOException
+	{
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+		correrConsola();
+	}
 	
 	// ############################################ Run
 	
@@ -249,7 +259,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 		String[] opcionesMenuUsuario = { "Actualizar estado de una pieza", "Cambiar propietario de una pieza",
 										"Buscar transaccion", "Consultar pieza", "Consultar historial de una pieza",
 										"Consultar historial de un artista", "Verificar usuario(s)", "Consultar historial vendedor",
-										"Registrar entrada de una pieza", "Registrar salida de una pieza", "Cerrar sesion"};
+										"Registrar entrada de una pieza", "Registrar salida de una pieza", "Registrar nueva adquisicion", "Cerrar sesion"};
 		
 		int iInput = this.mostrarMenu( "Menu de administrador. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
@@ -314,8 +324,14 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 				registrarSalida();
 				break;
 			}
+
+			case 11:
+			{
+				registrarAdquisicion();
+				break;
+			}
 			
-			case 11: // Cerrar sesion
+			case 12: // Cerrar sesion
 			{
 				controladorGaleria.cerrarSesion();
 				break;
