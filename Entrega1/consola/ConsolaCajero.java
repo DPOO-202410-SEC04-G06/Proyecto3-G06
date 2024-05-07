@@ -9,7 +9,6 @@ import usuarios.*;
 
 public class ConsolaCajero extends ConsolaEmpleado 
 {
-	// TODO
 
 	// ############################################ Atributos
 
@@ -70,7 +69,7 @@ public class ConsolaCajero extends ConsolaEmpleado
 			usuario.nuevaTransaccionPendiente(nextTransaccion);
 			System.out.println("Operacion cancelada");
 		}
-
+		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
 
@@ -124,7 +123,7 @@ public class ConsolaCajero extends ConsolaEmpleado
 				break;
 			}
 
-			case 7:
+			case 7: // Registrar transaccion
 			{
 				registrarTransaccion();
 				break;

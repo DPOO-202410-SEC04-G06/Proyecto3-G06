@@ -108,29 +108,38 @@ public class Operador extends Empleado
      * @param pieza
      * @param precioInicial
      * @param precioMinimo
-     * @param mapaUsuariosCorrientes
      * @param inventarioPiezas
+     * @return
      */
-    public void nuevaSubasta(String nombrePieza, Pieza pieza, int precioInicial, int precioMinimo, HashMap<String, UsuarioCorriente> mapaUsuariosCorrientes, Inventario inventarioPiezas)
+    public boolean nuevaSubasta(String nombrePieza, Pieza pieza, int precioInicial, int precioMinimo, Inventario inventarioPiezas)
     {   
+
+        boolean result = inventarioPiezas.actualizarEstadoPieza(nombrePieza, Inventario.SUBASTA);
+
+        if ( !result )
+        {
+            return result;
+        }
+
         pieza.setPrecioInicialSubasta(precioInicial);
         pieza.setPrecioMinSubasta(precioMinimo);
 
         manejoOfertas.put(nombrePieza, new TreeSet<Integer>() );
         ofertasUsuario.put(nombrePieza, new HashMap<Integer, UsuarioCorriente>() );
 
-        inventarioPiezas.actualizarEstadoPieza(nombrePieza, Inventario.SUBASTA);
+        return result;
     }
 
-    /**
-     * Finaliza la subasta de una pieza y realiza el cambio del propietario de la pieza
-     * @param nombrePieza
-     * @param pieza
-     * @param mapaUsuariosCorrientes
-     * @param inventarioPiezas
-     * @param cajero
-     * @return true si fue exitosa la subasta, false de lo contrario. Tambien pone la pieza en la lista de salida para el administrador
-     */
+     /**
+      * Finaliza la subasta de una pieza y realiza el cambio del propietario de la pieza
+      * @param nombrePieza
+      * @param pieza
+      * @param inventarioPiezas
+      * @param cajero
+      * @param portalPagos
+      * @param administrador
+      * @return true si fue exitosa la subasta, false de lo contrario. Tambien pone la pieza en la lista de salida para el administrador
+      */
     public boolean finalizarSubasta(String nombrePieza, Pieza pieza, Inventario inventarioPiezas, Cajero cajero, PortalPagos portalPagos, Administrador administrador)
     {
 
