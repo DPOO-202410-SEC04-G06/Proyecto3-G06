@@ -326,7 +326,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		while ( i < 3 && usernameIt.hasNext() )
 		{
 			String next = usernameIt.next();
-			System.out.println( next );
+			System.out.println( "Usuario " + i + ": " + next );
 			i += 1;
 		}
 
@@ -372,11 +372,11 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		Iterator<Integer> transIt = transaccionesSet.iterator();
 
 		System.out.println("\nMostrando los 3 primeros resultados...");
-		int i = 0;
-		while ( i < 3 && transIt.hasNext() )
+		int i = 1;
+		while ( i <= 3 && transIt.hasNext() )
 		{
 			Integer next = transIt.next();
-			System.out.println( next );
+			System.out.println( "Codigo " + i + ": " + next );
 			i += 1;
 		}
 
@@ -445,12 +445,79 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	}
 	
 	/**
+	 * Muestra la informacion de un autor
+	 * @param nombre
+	 * @param autor
+	 */
+	private void showArtista( String nombre, ArrayList<Pieza> autor )
+	{
+		System.out.println("Mostrando informacion de " + nombre );
+
+		Iterator<Pieza> piezasIt = autor.iterator();
+
+		System.out.println("\nMostrando los 3 primeros resultados...");
+		int i = 1;
+		while ( i <= 3 && piezasIt.hasNext() )
+		{
+			Pieza next = piezasIt.next();
+			System.out.println("Pieza" + i +": " + next.getTitulo() );
+		}
+
+		boolean confirmacion = this.pedirConfirmacionAlUsuario( "Desea buscar una pieza especifica en el historial?");
+
+		if (!confirmacion)
+		{
+			System.out.println( "Consulta finalizada." );
+		}
+		else
+		{
+			piezasIt = autor.iterator();
+			String titulo = this.pedirCadenaAlUsuario("Ingrese el titulo de la pieza que desea buscar");
+			
+			boolean found = false;
+			Pieza pieza = null;
+			while ( piezasIt.hasNext() && !found )
+			{
+				Pieza next = piezasIt.next();
+				if ( next.getTitulo().equals(titulo) )
+				{
+					found = true;
+					pieza = next;
+				}
+			}
+
+			if ( pieza == null )
+			{
+				System.out.println("Pieza no encontrado.");
+			}
+			else
+			{
+				System.out.println("Pieza encontrada...");
+				System.out.println("Titulo: " + pieza.getTitulo() );
+				System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
+				System.out.println("Autores: " + pieza.getAutores() );
+				System.out.println("Año: " + pieza.getAnio());
+				System.out.println("Ciudad: " + pieza.getCiudad());
+				System.out.println("Pais: " + pieza.getCiudad());
+				System.out.println("Estado: " + pieza.getEstado());
+				System.out.println("Propietario actual: " + pieza.getPropietario());
+
+				showTransacciones(pieza);
+
+				showArtista(nombre, autor);
+
+			}
+		}
+
+	}
+
+	/**
 	 * Consulta el historial de un artista
 	 * @throws IOException 
 	 */
 	private void consultarHistorialArtista() throws IOException
 	{
-		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del artista");
+		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del autor");
 		HashMap<String, ArrayList<Pieza>> mapaArtistas = controladorGaleria.galeria.getMapaAutores();
 		
 		if ( mapaArtistas != null )
@@ -459,7 +526,8 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 			if ( autor != null )
 			{
 				System.out.println("\nAutor encontrado...");
-				// TODO consultar el historial de un artista
+				
+				showArtista( nombreArtista, autor );
 			}
 			else
 			{
