@@ -48,6 +48,7 @@ public class Galeria implements Serializable
         mapaUsernamesPasswords = new HashMap<String, String>();
         portalPagos = new PortalPagos();
         piezasEnVenta = new HashMap< String, HashMap< String, String > >();
+        mapaAutores = new HashMap< String, ArrayList< Pieza > >();
     }
 
     // ############################################ Getters & Setters
