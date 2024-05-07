@@ -125,8 +125,12 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 			}
 			else
 			{
-			System.out.println( "Transaccion encontrada");
-			// TODO buscar transaccion
+			System.out.println( "Transaccion encontrada...");
+			System.out.println("Codigo: " + transaccion.getCodigoTransaccion() );
+			System.out.println("Comprador: " + transaccion.getNombreComprador() );
+			System.out.println("Vendedor: " + transaccion.getNombreVendedor() );
+			System.out.println("Precio de venta: " + transaccion.getPrecio() );
+			System.out.println("Fecha: " + transaccion.getFecha() );
 			}
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
