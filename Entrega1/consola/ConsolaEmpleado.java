@@ -27,6 +27,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	{
 		super();
 		this.controladorGaleria = controladorGaleria;
+		this.controladorGaleria.usuarioDeLaSesion = controladorGaleria.galeria.usuarioDeLaSesion;
 		this.nombreUsuario = controladorGaleria.usuarioDeLaSesion.getNombre();
 		this.usuario = (Empleado) controladorGaleria.usuarioDeLaSesion;
 		this.nombreAdmin = controladorGaleria.galeria.nombreAdministrador;

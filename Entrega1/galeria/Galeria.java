@@ -194,7 +194,7 @@ public class Galeria implements Serializable
                 {
                     cambiarRolEmpleado(nombreAdministrador, Empleado.CORRIENTE);
                 }
-
+                
                 nombreAdministrador = username;
                 break;
             }
@@ -232,6 +232,7 @@ public class Galeria implements Serializable
             }
         }
 
+        mapaUsernamesPasswords.put(username, password);
         mapaEmpleados.put(username, nuevoEmpleado);
     }
 

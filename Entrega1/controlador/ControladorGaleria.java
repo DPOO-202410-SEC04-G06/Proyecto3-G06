@@ -79,6 +79,7 @@ public class ControladorGaleria
     {
         Galeria galeria = centralPersistencia.cargarGaleria( CentralPersistencia.FOLDER + CentralPersistencia.FILENAME );
         usuarioDeLaSesion = galeria.usuarioDeLaSesion;
+        this.galeria = galeria;
         return galeria;
     }
 

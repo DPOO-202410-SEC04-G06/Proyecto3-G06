@@ -188,9 +188,8 @@ public class ConsolaCentral extends ConsolaBasica
 
 		try 
 		{
-
+			controladorGaleria = new ControladorGaleria();
 			controladorGaleria.cargarGaleria();
-			controladorGaleria.galeria = controladorGaleria.galeria;
 
 			String[] opcionesMenuPrincipal = { "Iniciar sesión", "Soy empleado", "Crear nuevo usuario", "Salir" };
 
@@ -216,7 +215,7 @@ public class ConsolaCentral extends ConsolaBasica
 					break;
 				}
 
-				default:
+				case 4:
 				{
 					break;
 				}
@@ -236,7 +235,6 @@ public class ConsolaCentral extends ConsolaBasica
 
 	public static void main(String[] args) 
 	{
-		controladorGaleria = new ControladorGaleria();
 		ConsolaCentral ca = new ConsolaCentral();
 		ca.correrAplicacion();
 	}
