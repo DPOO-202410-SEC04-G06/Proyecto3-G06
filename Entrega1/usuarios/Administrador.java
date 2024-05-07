@@ -35,6 +35,7 @@ public class Administrador extends Empleado
         piezasDeEntrada = new ArrayList< Pieza >();
         fechasSalidaPiezas = new HashMap< String, Date >();
         piezasDeSalida = new ArrayList< Pieza >();
+        comprasPendientes = new ArrayList< String >();
     }
 
     // ############################################ Getters & Setters
@@ -283,6 +284,7 @@ public class Administrador extends Empleado
         while ( iteratorAutores.hasNext() )
         {
             galeria.nuevaPiezaAutor( autor, pieza );
+            autor = iteratorAutores.next();
         }
 
     }
