@@ -7,7 +7,7 @@ import usuarios.*;
 
 public class ConsolaAdministrador extends ConsolaEmpleado 
 {
-    // TODO
+    // TODO implementar metodos admin
 
     // ############################################ Atributos
 

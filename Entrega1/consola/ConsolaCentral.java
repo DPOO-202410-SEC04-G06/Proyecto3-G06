@@ -33,8 +33,7 @@ public class ConsolaCentral extends ConsolaBasica
 		{
 			System.out.println( "Inicio de sesión exitoso: Bienvenido "+controladorGaleria.usuarioDeLaSesion.getNombre() );
 			cUsuarioCorriente = new ConsolaUsuarioCorriente(controladorGaleria);
-			System.out.println(    ( (Administrador)controladorGaleria.galeria.buscarEmpleadoUsername("a")).getPiezasDeEntrada()   );
-			cUsuarioCorriente.correrConsola( );
+			cUsuarioCorriente.correrConsola();
 		}
 		else
 		{
