@@ -377,7 +377,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		System.out.println("Metodo de pago cambiado adecuadamente");
-		
+		correrConsola();
 	}
 	
 	// ############################################ Run
@@ -417,25 +417,25 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 				break;
 			}
 			
-			case 6: // Consultar historial pieza
+			case 5: // Consultar historial pieza
 			{
 				consultarHistorialPieza();
 				break;
 			}
 			
-			case 7: // Consultar historial artista
+			case 6: // Consultar historial artista
 			{
 				consultarHistorialArtista();
 				break;
 			}
 			
-			case 8: // Cambiar metodo de pago
+			case 7: // Cambiar metodo de pago
 			{
 				cambiarMetodoPago();
 				break;
 			}
 			
-			case 9: // Cerrar sesion
+			case 8: // Cerrar sesion
 			{
 				controladorGaleria.cerrarSesion();
 				break;
