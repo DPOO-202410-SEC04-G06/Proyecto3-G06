@@ -229,6 +229,7 @@ public class UsuarioCorriente extends Usuario
     {
         pieza.setPrecioVenta(precioVenta);
         adquirirPieza( pieza.getTitulo(), pieza);
+        administrador.getVerificacionesConsignacionPendientes().add( getUsername() );
         administrador.nuevaPiezaEntrada(pieza);
         administrador.agregarFechaSalidaPieza(pieza.getTitulo(), fechaSalidaGaleria);
     }
@@ -238,8 +239,9 @@ public class UsuarioCorriente extends Usuario
      * @param nombrePieza
      * @param galeria
      */
-    public void aplicarComprarPieza( String nombrePieza, Galeria galeria )
+    public void aplicarComprarPieza( String nombrePieza, Galeria galeria, Administrador administrador )
     {
+        administrador.getVerificacionesConsignacionPendientes().add( getUsername() );
         galeria.bloquearPiezaEnVenta( nombrePieza, getUsername() );
     }
 

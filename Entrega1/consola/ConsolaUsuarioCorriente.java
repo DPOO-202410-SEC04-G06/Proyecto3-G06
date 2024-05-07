@@ -246,7 +246,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	private void comprarPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
-		usuario.aplicarComprarPieza(nombrePieza, controladorGaleria.galeria);
+		usuario.aplicarComprarPieza(nombrePieza, controladorGaleria.galeria, (Administrador)controladorGaleria.galeria.buscarEmpleadoUsername(nombreAdmin));
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}

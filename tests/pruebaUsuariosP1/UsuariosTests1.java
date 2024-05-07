@@ -161,7 +161,7 @@ public class UsuariosTests1
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAgregarPiezaGaleria;
 
 		
-		usuario2.aplicarComprarPieza(tituloCuadro, galeria);
+		usuario2.aplicarComprarPieza(tituloCuadro, galeria, administrador);
 		boolean resultadoAplicarComprar = galeria.getPiezasEnVenta().get(tituloCuadro).get(Galeria.COMPRADOR) != null;
 		System.out.println("	>> UsuarioCorriente2: Aplicar para la compra de una pieza = " + resultadoAplicarComprar );
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAplicarComprar;
