@@ -8,7 +8,6 @@ import usuarios.*;
 
 public class ConsolaOperador extends ConsolaEmpleado 
 {
-	// TODO
 
 	// ############################################ Atributos
 
