@@ -247,6 +247,31 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 */
 	private void registrarAdquisicion() throws IOException
 	{
+		String titulo = usuario.nextAdquisicion();
+
+		if ( titulo == null )
+		{
+			System.out.println( "No hay piezas de salida" );
+		}
+		else
+		{
+			Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(titulo);
+			System.out.println("Titulo: " + pieza.getTitulo() );
+			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
+			System.out.println("Autores: " + pieza.getAutores() );
+			System.out.println("Año: " + pieza.getAnio());
+			System.out.println("Ciudad: " + pieza.getCiudad());
+			System.out.println("Pais: " + pieza.getCiudad());
+			System.out.println("Estado: " + pieza.getEstado());
+			System.out.println("Propietario actual: " + pieza.getPropietario());
+
+			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar la compra de esta pieza?");
+
+			if ( confirmacion )
+			{
+				usuario.registrarAdquisicionPieza(titulo, controladorGaleria.galeria.getMapaUsuariosCorrientes(), controladorGaleria.galeria, controladorGaleria.galeria.getPortalPagos(), (Cajero)controladorGaleria.galeria.buscarEmpleadoUsername(nombreCajero));;
+			}
+		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
