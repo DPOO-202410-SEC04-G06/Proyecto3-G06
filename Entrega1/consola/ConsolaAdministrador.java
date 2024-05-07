@@ -30,7 +30,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 		
 		String[] opcionesMenuUsuario = { "Actualizar estado de una pieza", "Cambiar propietario de una pieza",
 										"Buscar transaccion", "Consultar pieza", "Consultar historial de una pieza",
-										"Consultar historial de un artista", "Verificar usuario(s)", ""};
+										"Consultar historial de un artista", "Verificar usuario(s)", "Consultar historial vendedor", "Cerrar sesion"};
 		
 		int iInput = this.mostrarMenu( "Menu de administrador. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
 		
@@ -74,7 +74,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 
 			
-			case 7: // Cerrar sesion
+			case 9: // Cerrar sesion
 			{
 				controladorGaleria.cerrarSesion();
 				break;

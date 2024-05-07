@@ -67,13 +67,17 @@ public class ConsolaOperador extends ConsolaEmpleado
 
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria( nombrePieza );
 
+		boolean resultadoOperacion = false;
 		if ( pieza == null )
 		{
 			System.out.println( "La pieza no fue encontrada, intente de nuevo" );
 			correrConsola();
 		}
+		else
+		{
+			resultadoOperacion = usuario.finalizarSubasta(nombrePieza, pieza, controladorGaleria.galeria.getInventarioPiezas(), (Cajero)controladorGaleria.galeria.buscarEmpleadoUsername(nombreCajero), controladorGaleria.galeria.getPortalPagos(), (Administrador)controladorGaleria.galeria.buscarEmpleadoUsername(nombreAdmin));
+		}
 
-		boolean resultadoOperacion = usuario.finalizarSubasta(nombrePieza, pieza, controladorGaleria.galeria.getInventarioPiezas(), (Cajero)controladorGaleria.galeria.buscarEmpleadoUsername(nombreCajero), controladorGaleria.galeria.getPortalPagos(), (Administrador)controladorGaleria.galeria.buscarEmpleadoUsername(nombreAdmin));
 		if ( resultadoOperacion )
 		{
 			System.out.println( "Operacion realizada exitosamente" );
