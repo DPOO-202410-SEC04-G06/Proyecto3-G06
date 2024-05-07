@@ -223,7 +223,7 @@ public class UsuariosTests1
 		
 		int precioInicialSubasta = 10;
 		int precioMinimoSubasta = 15;
-		operador.nuevaSubasta(tituloCuadro, piezaU1, precioInicialSubasta, precioMinimoSubasta, galeria.getMapaUsuariosCorrientes(), galeria.getInventarioPiezas());
+		operador.nuevaSubasta(tituloCuadro, piezaU1, precioInicialSubasta, precioMinimoSubasta, galeria.getInventarioPiezas());
 		boolean resultadoCambioEstadoSubasta = galeria.consultarEstadoPieza(tituloCuadro) == Inventario.SUBASTA;
 		boolean resultadoPresenciaPiezaMapaSubasta = galeria.getInventarioPiezas().getSubastaActiva().containsKey(tituloCuadro);
 		boolean resultadoNuevaSubasta = resultadoCambioEstadoSubasta && resultadoPresenciaPiezaMapaSubasta;
