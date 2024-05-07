@@ -58,9 +58,9 @@ public class Administrador extends Empleado
         return piezasDeEntrada;
     }
 
-    public ArrayList<Pieza> getFechasSalidaPiezas()
+    public HashMap<String, Date> getFechasSalidaPiezas()
     {
-        return piezasDeEntrada;
+        return fechasSalidaPiezas;
     }
 
     public ArrayList<Pieza> getPiezasDeSalida()
@@ -254,6 +254,17 @@ public class Administrador extends Empleado
     }
 
     /**
+     * Actualiza la pila de piezas de entrada
+     * @return
+     */
+    public Pieza nextPIn()
+    {
+        Pieza next = this.piezasDeEntrada.get(0);
+        piezasDeEntrada.remove(next);
+        return next;
+    }
+
+    /**
      * Agrega una nueva pieza al mapa de fechas de salida
      * @param nombrePieza
      * @param fechaSalida
@@ -286,6 +297,17 @@ public class Administrador extends Empleado
             galeria.removerPiezaEnVenta(nombrePieza);
         }
         fechasSalidaPiezas.remove(nombrePieza);
+    }
+
+    /**
+     * Actualiza la pila de piezas de salida
+     * @return
+     */
+    public Pieza nextPOut()
+    {
+        Pieza next = this.piezasDeSalida.get(0);
+        piezasDeSalida.remove(next);
+        return next;
     }
 
     /**

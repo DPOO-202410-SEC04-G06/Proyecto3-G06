@@ -1,8 +1,11 @@
 package consola;
 
 import java.io.IOException;
+import java.util.Date;
 
 import controlador.ControladorGaleria;
+import galeria.Inventario;
+import piezas.Pieza;
 import usuarios.*;
 
 public class ConsolaAdministrador extends ConsolaEmpleado 
@@ -25,7 +28,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 * Realiza una o varias verificaciones de usuario
 	 * @throws IOException
 	 */
-	public void verificarUsuarios() throws IOException
+	private void verificarUsuarios() throws IOException
 	{
 		String[] opciones = { "Verificar comprador", "Verificar vendedor", "Verificar usuario para subasta", "Salir" };
 
@@ -145,7 +148,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 * 
 	 * @throws IOException
 	 */
-	public void consultarHistorialVendedor() throws IOException
+	private void consultarHistorialVendedor() throws IOException
 	{
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
@@ -155,8 +158,51 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 * 
 	 * @throws IOException
 	 */
-	public void registrarEntrada() throws IOException
+	private void registrarEntrada() throws IOException
 	{
+
+		Pieza pieza = usuario.nextPIn();
+
+		if ( pieza == null )
+		{
+			System.out.println( "No hay piezas de salida" );
+		}
+		else
+		{
+			System.out.println("Titulo: " + pieza.getTitulo() );
+			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
+			System.out.println("Autores: " + pieza.getAutores() );
+			System.out.println("Año: " + pieza.getAnio());
+			System.out.println("Ciudad: " + pieza.getCiudad());
+			System.out.println("Pais: " + pieza.getCiudad());
+			System.out.println("Estado: " + pieza.getEstado());
+			System.out.println("Propietario actual: " + pieza.getPropietario());
+
+			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar la entrada de esta pieza?");
+
+			if ( confirmacion )
+			{
+				int estado;
+				
+				String[] opcionesEstado = { "Bodega", "Exponer" };
+				
+				int iUpdateState = this.mostrarMenu( "Elija el nuevo estado de la pieza", opcionesEstado);
+				
+				if ( iUpdateState == 1 )
+				{
+					estado = Inventario.BODEGA;
+				}
+				else
+				{
+					estado = Inventario.EXPUESTA;
+				}
+
+				Date fechaSalida = usuario.getFechasSalidaPiezas().get( pieza.getTitulo() );
+
+				usuario.agregarPieza(pieza, estado, fechaSalida, controladorGaleria.galeria.getInventarioPiezas(), controladorGaleria.galeria);
+			}
+		}
+		
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
@@ -165,8 +211,32 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 * 
 	 * @throws IOException
 	 */
-	public void registrarSalida() throws IOException
+	private void registrarSalida() throws IOException
 	{
+		Pieza pieza = usuario.nextPIn();
+
+		if ( pieza == null )
+		{
+			System.out.println( "No hay piezas de salida" );
+		}
+		else
+		{
+			System.out.println("Titulo: " + pieza.getTitulo() );
+			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
+			System.out.println("Autores: " + pieza.getAutores() );
+			System.out.println("Año: " + pieza.getAnio());
+			System.out.println("Ciudad: " + pieza.getCiudad());
+			System.out.println("Pais: " + pieza.getCiudad());
+			System.out.println("Estado: " + pieza.getEstado());
+			System.out.println("Propietario actual: " + pieza.getPropietario());
+
+			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar la entrada de esta pieza?");
+
+			if ( confirmacion )
+			{
+				usuario.registrarSalidaPieza( pieza.getTitulo(), controladorGaleria.galeria.getInventarioPiezas(), controladorGaleria.galeria );
+			}
+		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
