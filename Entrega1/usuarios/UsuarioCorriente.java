@@ -242,7 +242,7 @@ public class UsuarioCorriente extends Usuario
     public void aplicarComprarPieza( String nombrePieza, Galeria galeria, Administrador administrador )
     {
         administrador.getVerificacionesCompraPiezas().add( getUsername() );
-        administrador.getComprasPendientes().add(nombrePieza);
+        administrador.getComprasPendientes().add( nombrePieza );
         galeria.bloquearPiezaEnVenta( nombrePieza, getUsername() );
     }
 

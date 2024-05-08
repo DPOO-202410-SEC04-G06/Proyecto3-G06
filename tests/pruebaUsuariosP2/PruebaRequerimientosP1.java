@@ -211,7 +211,7 @@ class PruebaRequerimientosP1 {
 
 		
 		// TODO Crear nuevo metodo administrador para realizar este proceso
-		ArrayList<String> listaAdquisicionesPendientes = administrador.getVerificacionesCompraPiezas();
+		ArrayList<String> listaAdquisicionesPendientes = administrador.getComprasPendientes();
 		String tituloPiezaAdquisicion = listaAdquisicionesPendientes.get(0);
 		listaAdquisicionesPendientes.remove(0);
 

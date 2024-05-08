@@ -406,8 +406,8 @@ public class Galeria implements Serializable
         String estadoPiezaVenta = piezasEnVenta.get( nombrePieza ).get( COMPRADOR );
         if ( estadoPiezaVenta == null )
         {
-        	Administrador admin = (Administrador) mapaEmpleados.get(nombreAdministrador);
-            admin.getVerificacionesCompraPiezas().add(nombrePieza);
+        	//Administrador admin = (Administrador) mapaEmpleados.get(nombreAdministrador);
+            //admin.getComprasPendientes().add( nombrePieza );
             piezasEnVenta.get( nombrePieza ).put( COMPRADOR, username );
             return true;
         }
