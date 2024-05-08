@@ -67,7 +67,6 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 				}
 				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 				correrConsola();
-				verificarUsuarios();
 				break;
 			}
 
@@ -99,7 +98,6 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 					}
 
 				}
-				verificarUsuarios();
 				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 				correrConsola();
 				break;
@@ -133,7 +131,6 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 					}
 
 				}
-				verificarUsuarios();
 				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 				correrConsola();
 				break;

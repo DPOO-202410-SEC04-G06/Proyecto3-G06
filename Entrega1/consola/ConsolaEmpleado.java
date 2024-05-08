@@ -155,7 +155,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 			System.out.println("Ciudad: " + pieza.getCiudad());
 			System.out.println("Pais: " + pieza.getCiudad());
 			System.out.println("Estado: " + pieza.getEstado());
-			System.out.println("Propietario actual: " + pieza.getPropietario());
+			System.out.println("Propietario actual: " + pieza.getPropietario().getUsername() );
 
 			boolean continuar = this.pedirConfirmacionAlUsuario("Desea realizar otra consulta?");
 
@@ -324,6 +324,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		{
 			Pieza next = piezasIt.next();
 			System.out.println("Pieza" + i +": " + next.getTitulo() );
+			i += 1;
 		}
 
 		boolean confirmacion = this.pedirConfirmacionAlUsuario( "Desea buscar una pieza especifica en el historial?");
@@ -363,7 +364,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 				System.out.println("Ciudad: " + pieza.getCiudad());
 				System.out.println("Pais: " + pieza.getCiudad());
 				System.out.println("Estado: " + pieza.getEstado());
-				System.out.println("Propietario actual: " + pieza.getPropietario());
+				System.out.println("Propietario actual: " + pieza.getPropietario().getUsername() );
 
 				showTransacciones(pieza);
 

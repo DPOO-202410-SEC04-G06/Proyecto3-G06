@@ -31,6 +31,10 @@ public class ConsolaCajero extends ConsolaEmpleado
 	 */
 	public boolean showTransaccion( Transaccion nextTransaccion )
 	{
+		if ( nextTransaccion == null )
+		{
+			return false;
+		}
 		int codigoTransaccion = nextTransaccion.getCodigoTransaccion();
 		Date fechaTransaccion = nextTransaccion.getFecha();
 		String nombrePieza = nextTransaccion.getNombrePieza();
@@ -57,17 +61,24 @@ public class ConsolaCajero extends ConsolaEmpleado
 	{
 		Transaccion nextTransaccion = usuario.nextTransaccionPendiente();
 
-		boolean confirmacion = showTransaccion( nextTransaccion );
-		
-		if ( confirmacion )
+		if ( nextTransaccion != null )
 		{
-			usuario.registrarTransaccion(nextTransaccion, nextTransaccion.getFecha(), nextTransaccion.getCodigoTransaccion(), controladorGaleria.galeria.getPortalPagos());
-			System.out.println("Registro exitoso.");
+			boolean confirmacion = showTransaccion( nextTransaccion );
+			
+			if ( confirmacion )
+			{
+				usuario.registrarTransaccion(nextTransaccion, nextTransaccion.getFecha(), nextTransaccion.getCodigoTransaccion(), controladorGaleria.galeria.getPortalPagos());
+				System.out.println("Registro exitoso.");
+			}
+			else
+			{
+				usuario.nuevaTransaccionPendiente(nextTransaccion);
+				System.out.println("Operacion cancelada");
+			}
 		}
 		else
 		{
-			usuario.nuevaTransaccionPendiente(nextTransaccion);
-			System.out.println("Operacion cancelada");
+			System.out.println("Operacion no exitosa");
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();

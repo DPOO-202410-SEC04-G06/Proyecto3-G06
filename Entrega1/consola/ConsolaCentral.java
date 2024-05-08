@@ -68,6 +68,7 @@ public class ConsolaCentral extends ConsolaBasica
 	 * @throws IOException 
 	 */
 	private void crearEmpleado() throws IOException
+	
 	{
 		String iName = this.pedirCadenaAlUsuario("Ingrese su nombre");
 		String iPhone = this.pedirCadenaAlUsuario("Ingrese su número de teléfono");
