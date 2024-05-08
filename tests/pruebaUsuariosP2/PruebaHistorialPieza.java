@@ -1,25 +1,34 @@
 package pruebaUsuariosP2;
 
 import static org.junit.jupiter.api.Assertions.*;
-import galeria.Galeria;
-import piezas.*;
-import usuarios.UsuarioCorriente;
-import pagos.Transaccion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import galeria.Galeria;
+import pagos.Transaccion;
+import piezas.Cuadro;
+import piezas.Pieza;
+import usuarios.UsuarioCorriente;
 
-public class HistoriaPiezaTest {
+class PruebaHistorialPieza {
 
-    private Galeria galeria;
+	 private Galeria galeria;
     private UsuarioCorriente comprador1;
     private UsuarioCorriente comprador2;
     private Pieza pieza;
 
-void setUp() {
-        galeria = new Galeria();
+	@BeforeEach
+	void setUp() throws Exception 
+	{
+		galeria = new Galeria();
         comprador1 = new UsuarioCorriente("Comprador uno", "123456789", "compradorUno", "contraseña123");
         comprador2 = new UsuarioCorriente("Comprador dos", "987654321", "compradorDos", "contraseña321");
         
@@ -38,11 +47,12 @@ void setUp() {
         Transaccion venta = new Transaccion(comprador1.getUsername(), comprador2.getUsername(), fechaVenta, Transaccion.NO_SUBASTADO, 50, pieza.getTitulo(), 1, 10);
         pieza.getHistorialPagosCodigo().put(10, venta);
         pieza.cambiarPropietarioPieza(comprador2); 
-    }
+	}
 
-    void testHistoriaPieza() {
-        
-        assertNotNull(pieza.getMapaUsuarios().get(comprador1.getUsername()));
+	@Test
+	void test() 
+	{
+		assertNotNull(pieza.getMapaUsuarios().get(comprador1.getUsername()));
         assertNotNull(pieza.getMapaUsuarios().get(comprador2.getUsername()));
 
         
@@ -55,8 +65,6 @@ void setUp() {
 
         
         assertEquals(comprador2.getUsername(), pieza.getPropietario().getUsername());
-    }
+	}
 
 }
-
-
