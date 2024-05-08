@@ -281,7 +281,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	private void consultarPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
-		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
+		Pieza pieza = controladorGaleria.galeria.consultarTodasLasPiezas(nombrePieza);
 		if ( pieza != null )
 		{
 			System.out.println("\nPieza encontrada...");
@@ -418,7 +418,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	private void consultarHistorialPieza() throws IOException
 	{
 		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
-		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
+		Pieza pieza = controladorGaleria.galeria.consultarTodasLasPiezas(nombrePieza);
 		if ( pieza != null )
 		{
 			System.out.println("\nPieza encontrada...");
