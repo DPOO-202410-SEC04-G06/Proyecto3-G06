@@ -176,37 +176,43 @@ class PruebaRequerimientosP1 {
 		int montoU2 = 4000;
 		administrador.verificarComprador(usuario2, montoU2);
 		boolean resultadoMonto2 = usuario2.getMontoMax() == montoU2;
-		System.out.println("	>> Administrador: Verificar U2 comprador = " + resultadoMonto2 );
+		// System.out.println("	>> Administrador: Verificar U2 comprador = " + resultadoMonto2 );
+		assertTrue(resultadoMonto2);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoMonto2;
 		
 
 		administrador.verificarVendedor(usuario2);
 		boolean resultadoVendedor2 = usuario2.isVerifVendedor() == true;
-		System.out.println("	>> Administrador: Verificar U2 vendedor = " + resultadoVendedor2 );
+		//System.out.println("	>> Administrador: Verificar U2 vendedor = " + resultadoVendedor2 );
+		assertTrue(resultadoVendedor2);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoVendedor2;
 
 
 		Pieza piezaU1 = usuario1.nuevaPiezaParaConsignar(tituloCuadro, tipoCuadro, autoresCuadro, anioCuadro, ciudadCuadro, paisCuadro, otrosAtributosCuadro);
 		boolean resultadoPieza1 = piezaU1 != null;
-		System.out.println("	>> UsuarioCorriente1: Crear pieza = " + resultadoPieza1 );
+		//System.out.println("	>> UsuarioCorriente1: Crear pieza = " + resultadoPieza1 );
+		assertTrue(resultadoPieza1);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoVendedor2;
 		
 
 		usuario1.consignarPieza(piezaU1, precioVentaCuadro, fechaSalidaGaleriaPiezaCuadro, administrador);
 		boolean resultadoConsignarPieza = administrador.getPiezasDeEntrada().size() != 0;
-		System.out.println("	>> UsuarioCorriente1: Consignar pieza = " + resultadoConsignarPieza);
+		//System.out.println("	>> UsuarioCorriente1: Consignar pieza = " + resultadoConsignarPieza);
+		assertTrue(resultadoConsignarPieza);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoConsignarPieza;
 
 		
 		administrador.agregarPieza(piezaU1, estadoCuadro, fechaSalidaGaleriaPiezaCuadro, galeria.getInventarioPiezas(), galeria);
 		boolean resultadoAgregarPiezaGaleria = galeria.consultarEstadoPieza(tituloCuadro) == estadoCuadro;
-		System.out.println("	>> Administrador: Verificar entrada de pieza a la galeria = " + resultadoAgregarPiezaGaleria);
+		//System.out.println("	>> Administrador: Verificar entrada de pieza a la galeria = " + resultadoAgregarPiezaGaleria);
+		assertTrue(resultadoAgregarPiezaGaleria);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAgregarPiezaGaleria;
 
 		
 		usuario2.aplicarComprarPieza(tituloCuadro, galeria, administrador);
 		boolean resultadoAplicarComprar = galeria.getPiezasEnVenta().get(tituloCuadro).get(Galeria.COMPRADOR) != null;
-		System.out.println("	>> UsuarioCorriente2: Aplicar para la compra de una pieza = " + resultadoAplicarComprar );
+		//System.out.println("	>> UsuarioCorriente2: Aplicar para la compra de una pieza = " + resultadoAplicarComprar );
+		assertTrue(resultadoAplicarComprar);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAplicarComprar;
 
 		
@@ -222,20 +228,21 @@ class PruebaRequerimientosP1 {
 		boolean resultadoUsuario2 = usuario2.getPiezasActuales().containsKey(tituloCuadro);
 		boolean resultadoGaleria = galeria.consultarEstadoPieza(tituloPiezaAdquisicion) == Inventario.PASADA;
 		boolean resultadoAdquisicionPieza = resultadoUsuario1 && resultadoUsuario2 && resultadoGaleria;
-		System.out.println("	>> Administrador: Registrar venta & salida de pieza del inventario = " + resultadoAdquisicionPieza );
+		// System.out.println("	>> Administrador: Registrar venta & salida de pieza del inventario = " + resultadoAdquisicionPieza );
+		assertTrue(resultadoAdquisicionPieza);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAdquisicionPieza;
 		
 
-		System.out.println( "End: Resultado prueba = " + resultadoPrueba1 + "\n" );
+		//System.out.println( "End: Resultado prueba = " + resultadoPrueba1 + "\n" );
 		
-		System.out.println( "############################################################################" );
+		//System.out.println( "############################################################################" );
 
 		// ###############################################################################################
 		// ############################# Prueba de registro de transacciones #############################
 		// ###############################################################################################
 		
 		boolean resultadoPrueba2;
-		System.out.println( "\nStart: Prueba de registro de transacciones" );
+		//System.out.println( "\nStart: Prueba de registro de transacciones" );
 		
 
 		// TODO Crear nuevo metodo cajero para realizar este proceso
@@ -247,13 +254,14 @@ class PruebaRequerimientosP1 {
 		cajero.registrarTransaccion(transaccionPendiente, transaccionPendiente.getFecha(), transaccionPendiente.getCodigoTransaccion(), galeria.getPortalPagos());
 		Transaccion transaccionBuscada = galeria.getPortalPagos().buscarTransaccionCodigo(transaccionPendiente.getCodigoTransaccion());
 		boolean resultadoRegistrarTransaccion = transaccionBuscada != null;
-		System.out.println( "	>> Cajero: Registrar transacción U1->U2 (sin subasta) = " + resultadoRegistrarTransaccion );
+		//System.out.println( "	>> Cajero: Registrar transacción U1->U2 (sin subasta) = " + resultadoRegistrarTransaccion );
+		assertTrue(resultadoRegistrarTransaccion);
 		resultadoPrueba2 = resultadoRegistrarTransaccion;
 
 
-		System.out.println( "End: Resultado prueba = " + resultadoPrueba2 + "\n" );
+		//System.out.println( "End: Resultado prueba = " + resultadoPrueba2 + "\n" );
 
-		System.out.println( "############################################################################" );
+		//System.out.println( "############################################################################" );
 		
 
 		// ##########################################################################
@@ -261,7 +269,7 @@ class PruebaRequerimientosP1 {
 		// ##########################################################################
 		
 		boolean resultadoPrueba3;
-		System.out.println( "\nStart: Prueba subasta" );
+		//System.out.println( "\nStart: Prueba subasta" );
 		
 		
 		int precioInicialSubasta = 10;
@@ -270,13 +278,15 @@ class PruebaRequerimientosP1 {
 		boolean resultadoCambioEstadoSubasta = galeria.consultarEstadoPieza(tituloCuadro) == Inventario.SUBASTA;
 		boolean resultadoPresenciaPiezaMapaSubasta = galeria.getInventarioPiezas().getSubastaActiva().containsKey(tituloCuadro);
 		boolean resultadoNuevaSubasta = resultadoCambioEstadoSubasta && resultadoPresenciaPiezaMapaSubasta;
-		System.out.println( "	>> Operador: Empezar subasta = " + resultadoNuevaSubasta );
+		//System.out.println( "	>> Operador: Empezar subasta = " + resultadoNuevaSubasta );
+		assertTrue(resultadoNuevaSubasta);
 		resultadoPrueba3 = resultadoNuevaSubasta;
 
 
 		administrador.verificarOfertaSubasta(usuario1.getUsername(), operador);
 		boolean resultadoVerificacionUsuarioSubasta = operador.getUsuariosVerificadosSubasta().contains(usuario1.getUsername());
-		System.out.println( "	>> Administrador: Registrar U1 para subasta = " + resultadoVerificacionUsuarioSubasta );
+		//System.out.println( "	>> Administrador: Registrar U1 para subasta = " + resultadoVerificacionUsuarioSubasta );
+		assertTrue(resultadoVerificacionUsuarioSubasta);
 		resultadoPrueba3 = resultadoPrueba3 && resultadoVerificacionUsuarioSubasta;
 
 
@@ -285,20 +295,23 @@ class PruebaRequerimientosP1 {
 		boolean resultadoGuardarOferta = operador.getManejoOfertas().get(tituloCuadro).first() == ofertaUsuario;
 		boolean resultadoGuardarOfertaUsuario = operador.getOfertasUsuario().get(tituloCuadro).get(ofertaUsuario) != null;
 		boolean resultadoNuevaOferta = resultadoGuardarOferta && resultadoGuardarOfertaUsuario;
-		System.out.println( "	>> UsuarioCorriente1: Nueva oferta = " + resultadoNuevaOferta );
+		//System.out.println( "	>> UsuarioCorriente1: Nueva oferta = " + resultadoNuevaOferta );
+		assertTrue(resultadoNuevaOferta);
 		resultadoPrueba3 = resultadoPrueba3 && resultadoNuevaOferta;
 
 
 		operador.finalizarSubasta(tituloCuadro, piezaU1, galeria.getInventarioPiezas(), cajero, galeria.getPortalPagos(), administrador);
 		boolean resultadoNuevoPropietario = usuario1.getPiezasActuales().containsKey(tituloCuadro);
-		System.out.println( "	>> Operador: Finalizar subasta = " + resultadoNuevoPropietario );
+		//System.out.println( "	>> Operador: Finalizar subasta = " + resultadoNuevoPropietario );
+		assertTrue(resultadoNuevoPropietario);
 		resultadoPrueba3 = resultadoPrueba3 && resultadoNuevoPropietario;
 
 
 		cajero.registrarTransaccion(transaccionPendiente, transaccionPendiente.getFecha(), transaccionPendiente.getCodigoTransaccion(), galeria.getPortalPagos());
 		Transaccion transaccionBuscada2 = galeria.getPortalPagos().buscarTransaccionCodigo(transaccionPendiente.getCodigoTransaccion());
 		boolean resultadoRegistrarTransaccion2 = transaccionBuscada2 != null;
-		System.out.println( "	>> Cajero: Registrar transacción U2->U1 (con subasta) = " + resultadoRegistrarTransaccion2 );
+		//System.out.println( "	>> Cajero: Registrar transacción U2->U1 (con subasta) = " + resultadoRegistrarTransaccion2 );
+		assertTrue(resultadoRegistrarTransaccion2);
 		resultadoPrueba3 = resultadoPrueba3 && resultadoRegistrarTransaccion2;
 		
 	}
