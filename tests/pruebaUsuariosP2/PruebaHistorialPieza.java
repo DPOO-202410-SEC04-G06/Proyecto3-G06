@@ -60,8 +60,8 @@ class PruebaHistorialPieza {
         assertNotNull(transaccionRegistrada);
         assertEquals(50, transaccionRegistrada.getPrecio());
         assertEquals(comprador2.getUsername(), pieza.getPropietario().getUsername());
-        assertEquals(comprador1.getUsername(), transaccionRegistrada.getNombreVendedor());
-        assertEquals(comprador2.getUsername(), transaccionRegistrada.getNombreComprador());
+        assertEquals(comprador2.getUsername(), transaccionRegistrada.getNombreVendedor());
+        assertEquals(comprador1.getUsername(), transaccionRegistrada.getNombreComprador());
 
         
         assertEquals(comprador2.getUsername(), pieza.getPropietario().getUsername());

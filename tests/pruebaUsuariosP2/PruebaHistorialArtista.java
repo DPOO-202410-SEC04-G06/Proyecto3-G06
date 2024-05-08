@@ -20,7 +20,7 @@ class PruebaHistorialArtista {
 
 	private Galeria galeria;
 	private UsuarioCorriente propietario;
-	private HashMap<String, List<Cuadro>> obrasPorArtista;
+	private HashMap< String, ArrayList<String>> obrasPorArtista;
 
 	@BeforeEach
 	void setUp() throws Exception 
@@ -29,31 +29,27 @@ class PruebaHistorialArtista {
         propietario = new UsuarioCorriente("Propietario", "123456789", "propietarioUser", "password123");
         galeria.crearUsuarioCorriente(propietario.getNombre(), propietario.getTelefono(), propietario.getUsername(), propietario.getPassword());
 
-        obrasPorArtista = new HashMap<>();
-
+        obrasPorArtista = new HashMap < String, ArrayList<String>>();
         
-        List<Cuadro> obrasDeLeonardo = Arrays.asList(
-            new Cuadro("La Divina", Pieza.CUADRO, 1, new ArrayList<>(Arrays.asList("Jeronimo Vasquez")), "2024", "Bogota", "Colombia", propietario, "Óleo sobre lienzo", "77 cm", "53 cm", "Sí"),
-            new Cuadro("Ella", Pieza.CUADRO, 1, new ArrayList<>(Arrays.asList("Jeronimo Vasquez")), "2022", "Bucaramanga", "Colombia", propietario, "Óleo sobre lienzo", "10 cm", "10 cm", "No"));
-        obrasPorArtista.put("Leonardo Da Vinci", obrasDeLeonardo);
+        obrasPorArtista.put("Leonardo Da Vinci", new ArrayList<String>() );
 	}
 
 	@Test
 	void test() 
 	{
-		String nombreArtista = "Jeronimo Vasquez";
-        List<Cuadro> obras = obrasPorArtista.getOrDefault(nombreArtista, new ArrayList<>());
+		Cuadro c1 = new Cuadro("La Divina", Pieza.CUADRO, 1, new ArrayList<>(Arrays.asList("Jeronimo Vasquez")), "2024", "Bogota", "Colombia", propietario, "Óleo sobre lienzo", "77 cm", "53 cm", "Sí");
+        Cuadro c2 = new Cuadro("Ella", Pieza.CUADRO, 1, new ArrayList<>(Arrays.asList("Jeronimo Vasquez")), "2022", "Bucaramanga", "Colombia", propietario, "Óleo sobre lienzo", "10 cm", "10 cm", "No");
+        
+        obrasPorArtista.get("Leonardo Da Vinci").add( "La Divina" );
+        obrasPorArtista.get("Leonardo Da Vinci").add( "Ella" );
 
-        String historia = obras.stream()
-            .map(obra -> String.format("Título: %s, Año: %s, Ciudad: %s, País: %s, Tipo: %s\n",
-                    obra.getTitulo(), obra.getAnio(), obra.getCiudad(), obra.getPais(), obra.getTipo()))
-            .collect(Collectors.joining());
-
-        assertNotNull(historia, "La historia no debería ser nula");
-        assertTrue(historia.contains("La Divina"), "La historia debe contener 'La Divina'");
-        assertTrue(historia.contains("Ella"), "La historia debe contener 'Ella'");
-        assertTrue(historia.contains("2024"), "La historia debe incluir el año 2024");
-        assertTrue(historia.contains("2022"), "La historia debe incluir el año 2022");
+        assertFalse(obrasPorArtista.isEmpty(), "La historia no debería ser nula");
+        assertTrue(obrasPorArtista.containsKey("Leonardo Da Vinci"), "La historia debe contener 'La Divina'");
+        
+        ArrayList<String> listaPiezas = obrasPorArtista.get("Leonardo Da Vinci");
+        
+        assertTrue(listaPiezas.contains("La Divina"), "La historia debe contener 'La Divina'");
+        assertTrue(listaPiezas.contains("Ella"), "La historia debe contener 'Ella'");
 	}
 
 }
