@@ -33,7 +33,6 @@ class PruebaHistorialComprador {
 
         comprasPorUsuario = new HashMap<>();
         
-        
         List<Transaccion> comprasDelComprador = new ArrayList<>();
         comprasDelComprador.add(new Transaccion("compradorUsuario", "vendedorUsuario", new Date(), false, 1000, "Obra 1", 1, 1));
         comprasDelComprador.add(new Transaccion("compradorUsuario", "vendedorUsuario", new Date(), false, 2000, "Obra 2", 1, 2));
