@@ -17,24 +17,13 @@ import usuarios.UsuarioCorriente;
 
 public class UsuariosTests1 
 {
-	private static ControladorGaleria controlador = new ControladorGaleria();
-	private static Galeria galeria = controlador.getGaleria();
+	private static Galeria galeria = new Galeria();
 
 	public static void main(String[] args) 
 	{
 		
 		System.out.println( "\n### Prueba requerimientos usuario ###\n" );
 		
-		// Reset los datos de prueba
-		try 
-		{
-			controlador.salvarGaleria(galeria);
-			galeria = controlador.cargarGaleria();
-		} 
-		catch (IOException | ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
 		
 		// Datos prueba Admin
 		String nombreAdmin = "Adrian";
@@ -260,17 +249,6 @@ public class UsuariosTests1
 
 
 		System.out.println( "End: Resultado prueba = " + resultadoPrueba3 + "\n" );
-
-
-		// Guardar estado actual de la galeria
-		try 
-		{
-			controlador.salvarGaleria(galeria);
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
 
 	}
 }
