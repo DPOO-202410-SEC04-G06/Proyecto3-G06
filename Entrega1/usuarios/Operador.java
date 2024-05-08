@@ -144,6 +144,12 @@ public class Operador extends Empleado
     {
 
         int precioMinimo = pieza.getPrecioMinSubasta();
+
+        if ( !manejoOfertas.containsKey(nombrePieza) )
+        {
+            return false;
+        }
+
         int ofertaMasGrande = manejoOfertas.get(nombrePieza).first();
 
         if ( precioMinimo <= ( ofertaMasGrande ) )
