@@ -2,9 +2,11 @@ package consola;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 import controlador.ControladorGaleria;
 import galeria.Inventario;
+import pagos.Transaccion;
 import piezas.Pieza;
 import usuarios.*;
 
@@ -153,6 +155,34 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 */
 	private void consultarHistorialVendedor() throws IOException
 	{
+
+		String username = this.pedirCadenaAlUsuario("Ingrese el nombre del vendedor");
+
+		UsuarioCorriente usuario = controladorGaleria.galeria.buscarUsuarioCorrienteUsername(username);
+
+		if ( usuario == null )
+		{
+			System.out.println("El usuario no fue encontrado");
+		}
+		else
+		{
+			System.out.println( "Nombre: " + usuario.getNombre() );
+			System.out.println( "Telefono: " + usuario.getTelefono() );
+			System.out.println( "Estado de verificacion vendedor: " + usuario.isVerifVendedor() );
+			System.out.println( "Estado de verificacion comprador: " + usuario.isVerifComprador() );
+
+			HashMap<Date, HashMap<String, Transaccion>> historialTransacciones = usuario.getHistorialPagosFecha();
+
+			if ( historialTransacciones.isEmpty() )
+			{
+				System.out.println( "El usuario no tiene transacciones");
+			}
+			else
+			{
+				System.out.println( "El usuario tiene transacciones");
+			}
+		}
+
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
