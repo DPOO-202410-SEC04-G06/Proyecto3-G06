@@ -185,7 +185,6 @@ public class Administrador extends Empleado
         if ( precio <= usuario.getMontoMax() )
         {
             Pieza pieza = galeria.consultarPiezaGaleria( nombrePieza );
-            cambiarPropietarioPieza( nombrePieza, pieza, usuario );
             galeria.removerPiezaEnVenta( nombrePieza );
             actualizarEstadoPieza(nombrePieza, Inventario.PASADA, galeria.getInventarioPiezas());
             nuevaTransaccion(usuario.getNombre(), 
@@ -197,6 +196,7 @@ public class Administrador extends Empleado
                                 usuario.getMetodoPago(), 
                                 cajero, 
                                 portalPagos);
+            cambiarPropietarioPieza( nombrePieza, pieza, usuario );
         }
         else
         {
