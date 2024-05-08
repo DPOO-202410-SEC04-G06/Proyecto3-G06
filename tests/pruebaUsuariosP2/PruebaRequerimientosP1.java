@@ -162,14 +162,14 @@ class PruebaRequerimientosP1 {
 		administrador.verificarComprador(usuario1, montoU1);
 		boolean resultadoMonto1 = usuario1.getMontoMax() == montoU1;
 		//System.out.println("	>> Administrador: Verificar U1 comprador = " + resultadoMonto1 );
-		assertTrue(resultadoMonto1);
+		assertTrue(resultadoMonto1, "El monto máximo deberia ser 5000");
 		resultadoPrueba1 = resultadoMonto1;
 		
 
 		administrador.verificarVendedor(usuario1);
 		boolean resultadoVendedor1 = usuario1.isVerifVendedor() == true;
 		//System.out.println("	>> Administrador: Verificar U1 vendedor = " + resultadoVendedor1 );
-		assertTrue(resultadoVendedor1);
+		assertTrue(resultadoVendedor1, "El usuario 1 debería ser un vendedor verificado");
 		resultadoPrueba1 =  resultadoPrueba1 && resultadoVendedor1;
 		
 
@@ -177,42 +177,42 @@ class PruebaRequerimientosP1 {
 		administrador.verificarComprador(usuario2, montoU2);
 		boolean resultadoMonto2 = usuario2.getMontoMax() == montoU2;
 		// System.out.println("	>> Administrador: Verificar U2 comprador = " + resultadoMonto2 );
-		assertTrue(resultadoMonto2);
+		assertTrue(resultadoMonto2, "El monto máximo debería ser 4000");
 		resultadoPrueba1 = resultadoPrueba1 && resultadoMonto2;
 		
 
 		administrador.verificarVendedor(usuario2);
 		boolean resultadoVendedor2 = usuario2.isVerifVendedor() == true;
 		//System.out.println("	>> Administrador: Verificar U2 vendedor = " + resultadoVendedor2 );
-		assertTrue(resultadoVendedor2);
+		assertTrue(resultadoVendedor2, "El usuario 2 debería ser un vendedor verificado");
 		resultadoPrueba1 = resultadoPrueba1 && resultadoVendedor2;
 
 
 		Pieza piezaU1 = usuario1.nuevaPiezaParaConsignar(tituloCuadro, tipoCuadro, autoresCuadro, anioCuadro, ciudadCuadro, paisCuadro, otrosAtributosCuadro);
 		boolean resultadoPieza1 = piezaU1 != null;
 		//System.out.println("	>> UsuarioCorriente1: Crear pieza = " + resultadoPieza1 );
-		assertTrue(resultadoPieza1);
+		assertTrue(resultadoPieza1, "La pieza creada debería no se null");
 		resultadoPrueba1 = resultadoPrueba1 && resultadoVendedor2;
 		
 
 		usuario1.consignarPieza(piezaU1, precioVentaCuadro, fechaSalidaGaleriaPiezaCuadro, administrador);
 		boolean resultadoConsignarPieza = administrador.getPiezasDeEntrada().size() != 0;
 		//System.out.println("	>> UsuarioCorriente1: Consignar pieza = " + resultadoConsignarPieza);
-		assertTrue(resultadoConsignarPieza);
+		assertTrue(resultadoConsignarPieza, "Debería haber una pieza en la cola de entrada a la galería");
 		resultadoPrueba1 = resultadoPrueba1 && resultadoConsignarPieza;
 
 		
 		administrador.agregarPieza(piezaU1, estadoCuadro, fechaSalidaGaleriaPiezaCuadro, galeria.getInventarioPiezas(), galeria);
 		boolean resultadoAgregarPiezaGaleria = galeria.consultarEstadoPieza(tituloCuadro) == estadoCuadro;
 		//System.out.println("	>> Administrador: Verificar entrada de pieza a la galeria = " + resultadoAgregarPiezaGaleria);
-		assertTrue(resultadoAgregarPiezaGaleria);
+		assertTrue(resultadoAgregarPiezaGaleria, "El estado de la pieza debería ser " + estadoCuadro);
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAgregarPiezaGaleria;
 
 		
 		usuario2.aplicarComprarPieza(tituloCuadro, galeria, administrador);
 		boolean resultadoAplicarComprar = galeria.getPiezasEnVenta().get(tituloCuadro).get(Galeria.COMPRADOR) != null;
 		//System.out.println("	>> UsuarioCorriente2: Aplicar para la compra de una pieza = " + resultadoAplicarComprar );
-		assertTrue(resultadoAplicarComprar);
+		assertTrue(resultadoAplicarComprar, "La pieza debería estar en venta");
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAplicarComprar;
 
 		
@@ -229,7 +229,7 @@ class PruebaRequerimientosP1 {
 		boolean resultadoGaleria = galeria.consultarEstadoPieza(tituloPiezaAdquisicion) == Inventario.PASADA;
 		boolean resultadoAdquisicionPieza = resultadoUsuario1 && resultadoUsuario2 && resultadoGaleria;
 		// System.out.println("	>> Administrador: Registrar venta & salida de pieza del inventario = " + resultadoAdquisicionPieza );
-		assertTrue(resultadoAdquisicionPieza);
+		assertTrue(resultadoAdquisicionPieza, "La pieza debería cambiar de usuario");
 		resultadoPrueba1 = resultadoPrueba1 && resultadoAdquisicionPieza;
 		
 
@@ -255,7 +255,7 @@ class PruebaRequerimientosP1 {
 		Transaccion transaccionBuscada = galeria.getPortalPagos().buscarTransaccionCodigo(transaccionPendiente.getCodigoTransaccion());
 		boolean resultadoRegistrarTransaccion = transaccionBuscada != null;
 		//System.out.println( "	>> Cajero: Registrar transacción U1->U2 (sin subasta) = " + resultadoRegistrarTransaccion );
-		assertTrue(resultadoRegistrarTransaccion);
+		assertTrue(resultadoRegistrarTransaccion, "La transacción debería estar registrada en el sistema");
 		resultadoPrueba2 = resultadoRegistrarTransaccion;
 
 
@@ -279,14 +279,14 @@ class PruebaRequerimientosP1 {
 		boolean resultadoPresenciaPiezaMapaSubasta = galeria.getInventarioPiezas().getSubastaActiva().containsKey(tituloCuadro);
 		boolean resultadoNuevaSubasta = resultadoCambioEstadoSubasta && resultadoPresenciaPiezaMapaSubasta;
 		//System.out.println( "	>> Operador: Empezar subasta = " + resultadoNuevaSubasta );
-		assertTrue(resultadoNuevaSubasta);
+		assertTrue(resultadoNuevaSubasta, "La pieza debería estar subastada");
 		resultadoPrueba3 = resultadoNuevaSubasta;
 
 
 		administrador.verificarOfertaSubasta(usuario1.getUsername(), operador);
 		boolean resultadoVerificacionUsuarioSubasta = operador.getUsuariosVerificadosSubasta().contains(usuario1.getUsername());
 		//System.out.println( "	>> Administrador: Registrar U1 para subasta = " + resultadoVerificacionUsuarioSubasta );
-		assertTrue(resultadoVerificacionUsuarioSubasta);
+		assertTrue(resultadoVerificacionUsuarioSubasta, "Debería haber un usuario registrado en la subasta");
 		resultadoPrueba3 = resultadoPrueba3 && resultadoVerificacionUsuarioSubasta;
 
 
@@ -296,14 +296,14 @@ class PruebaRequerimientosP1 {
 		boolean resultadoGuardarOfertaUsuario = operador.getOfertasUsuario().get(tituloCuadro).get(ofertaUsuario) != null;
 		boolean resultadoNuevaOferta = resultadoGuardarOferta && resultadoGuardarOfertaUsuario;
 		//System.out.println( "	>> UsuarioCorriente1: Nueva oferta = " + resultadoNuevaOferta );
-		assertTrue(resultadoNuevaOferta);
+		assertTrue(resultadoNuevaOferta, "Debería haber una nueva oferta en la subasta");
 		resultadoPrueba3 = resultadoPrueba3 && resultadoNuevaOferta;
 
 
 		operador.finalizarSubasta(tituloCuadro, piezaU1, galeria.getInventarioPiezas(), cajero, galeria.getPortalPagos(), administrador);
 		boolean resultadoNuevoPropietario = usuario1.getPiezasActuales().containsKey(tituloCuadro);
 		//System.out.println( "	>> Operador: Finalizar subasta = " + resultadoNuevoPropietario );
-		assertTrue(resultadoNuevoPropietario);
+		assertTrue(resultadoNuevoPropietario, "El usuario debería tener la pieza que compró");
 		resultadoPrueba3 = resultadoPrueba3 && resultadoNuevoPropietario;
 
 
@@ -311,7 +311,7 @@ class PruebaRequerimientosP1 {
 		Transaccion transaccionBuscada2 = galeria.getPortalPagos().buscarTransaccionCodigo(transaccionPendiente.getCodigoTransaccion());
 		boolean resultadoRegistrarTransaccion2 = transaccionBuscada2 != null;
 		//System.out.println( "	>> Cajero: Registrar transacción U2->U1 (con subasta) = " + resultadoRegistrarTransaccion2 );
-		assertTrue(resultadoRegistrarTransaccion2);
+		assertTrue(resultadoRegistrarTransaccion2, "La transacción debería estar registrada");
 		resultadoPrueba3 = resultadoPrueba3 && resultadoRegistrarTransaccion2;
 		
 	}
