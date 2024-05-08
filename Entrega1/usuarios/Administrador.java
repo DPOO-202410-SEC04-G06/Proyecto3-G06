@@ -254,6 +254,16 @@ public class Administrador extends Empleado
     }
 
     /**
+     * Agrega un nuevo usuario a la cola de usuarios de subasta por verificar
+     * @param nombreUsuario
+     */
+    public void nuevaOfertaUsuario( String nombreUsuario )
+    {
+        verificacionesUsuarioSubasta.add(nombreUsuario);
+    }
+
+
+    /**
      * Agrega una nueva pieza a la lista de piezas por entrar a la galeria, el administrador verifica los datos
      * @param pieza
      */

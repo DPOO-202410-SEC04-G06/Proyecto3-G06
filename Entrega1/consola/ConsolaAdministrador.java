@@ -65,7 +65,8 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 					}
 
 				}
-
+				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+				correrConsola();
 				verificarUsuarios();
 				break;
 			}
@@ -99,6 +100,8 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 				}
 				verificarUsuarios();
+				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+				correrConsola();
 				break;
 			}
 
@@ -131,17 +134,20 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 				}
 				verificarUsuarios();
+				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+				correrConsola();
 				break;
 			}
 
 			case 4:
 			{
+				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+				correrConsola();
 				break;
 			}
 		}
 
-		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
-		correrConsola();
+		
 	}
 
 	/**
@@ -213,7 +219,7 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 	 */
 	private void registrarSalida() throws IOException
 	{
-		Pieza pieza = usuario.nextPIn();
+		Pieza pieza = usuario.nextPOut();
 
 		if ( pieza == null )
 		{

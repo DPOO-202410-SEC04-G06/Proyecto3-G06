@@ -268,6 +268,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		else
 		{
 			System.out.println( "Error al registrar la oferta. Verifique si tiene autorizacion o si la pieza esta en subasta" );
+			( (Administrador) controladorGaleria.galeria.buscarEmpleadoUsername(nombreAdmin) ).nuevaOfertaUsuario( usuario.getNombre() );
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
