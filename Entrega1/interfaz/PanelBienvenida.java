@@ -15,9 +15,10 @@ public class PanelBienvenida extends JPanel{
 	private JButton ingresar;
 	private JButton registrar;
 	private JButton salir;
+	private JButton empleado;
 	
 	public PanelBienvenida(){
-		setLayout(new GridLayout(3, 1, 10, 10)); // Ajusta el GridLayout con 4 filas, 1 columna, y espacios
+		setLayout(new GridLayout(4, 1, 20, 20)); // Ajusta el GridLayout con 4 filas, 1 columna, y espacios
         JPanel PanelBienvenida = new JPanel();
         PanelBienvenida.setLayout(null); // Usa un layout manager nulo
         
@@ -39,7 +40,6 @@ public class PanelBienvenida extends JPanel{
 				ventanaRegistro.setVisible(true);
 				
 
-				
 			}
         	
         });
@@ -53,8 +53,24 @@ public class PanelBienvenida extends JPanel{
         	} 	
         });
         add(salir);
-		
+        
+    
+        
+        //Boton empleado
+        
+        empleado = new JButton("Empledo");
+        empleado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InterfazRegistrar ventanaRegistro  = new InterfazRegistrar();
+				ventanaRegistro.setVisible(true);
+        		
+
+			}
+        	
+        });
+        add(empleado);
 	}
+	
 
 
 }

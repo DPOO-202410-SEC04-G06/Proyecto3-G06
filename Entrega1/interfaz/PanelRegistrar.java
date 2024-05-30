@@ -2,6 +2,7 @@ package interfaz;
 
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -14,6 +15,7 @@ public class PanelRegistrar extends JPanel{
 	private JTextField tipo;
 	private JTextField login;
 	private JTextField contraseña;
+	private JButton BtnAceptar;
 	
 	public PanelRegistrar() {
 		IniciarRegistro();
@@ -28,6 +30,7 @@ public class PanelRegistrar extends JPanel{
 		tipo = new JTextField(15);
 		login = new JTextField(15);
 		contraseña = new JTextField(15);
+		BtnAceptar = new JButton("Aceptar");
 	}
 	
 	private void ConfigurarRegistro() {
