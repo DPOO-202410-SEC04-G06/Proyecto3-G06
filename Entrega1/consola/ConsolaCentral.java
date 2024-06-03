@@ -2,11 +2,12 @@ package consola;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import controlador.ControladorGaleria;
 import usuarios.*;
 
-public class ConsolaCentral extends ConsolaBasica
-{
+public class ConsolaCentral extends ConsolaBasica {
 	// ############################################ Atributos
 
 	private static ConsolaEmpleadoCorriente cEmpleado;
@@ -15,29 +16,32 @@ public class ConsolaCentral extends ConsolaBasica
 	private static ConsolaOperador cOperador;
 	private static ConsolaUsuarioCorriente cUsuarioCorriente;
 	private static ControladorGaleria controladorGaleria;
-	
-	// ############################################ Metodos privados
+
+	public ConsolaCentral(ControladorGaleria controladorGaleria) {
+		ConsolaCentral.controladorGaleria = controladorGaleria;
+	}
+
+	// ############################################ Métodos privados
 
 	/**
-	 * Metodo para iniciar sesión de un usuario corriente
-	 * @throws IOException 
+	 * Método para iniciar sesión de un usuario corriente
+	 * 
+	 * @throws IOException
 	 */
-	private void iniciarSesion() throws IOException
-	{
+	private void iniciarSesion() throws IOException {
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
-		boolean result = controladorGaleria.iniciarSesion( iUsername, iPassword );
-
-		if ( result )
-		{
-			System.out.println( "Inicio de sesión exitoso: Bienvenido "+controladorGaleria.usuarioDeLaSesion.getNombre() );
+		boolean result = controladorGaleria.iniciarSesion(iUsername, iPassword);
+		System.out.println(result);
+		if (result) {
+			JOptionPane.showMessageDialog(null,
+					"Inicio de sesión exitoso: Bienvenido " + controladorGaleria.usuarioDeLaSesion.getNombre());
 			cUsuarioCorriente = new ConsolaUsuarioCorriente(controladorGaleria);
 			cUsuarioCorriente.correrConsola();
-		}
-		else
-		{
-			System.out.println( "No se encontró el usuario en el sistema" );
+		} else {
+			JOptionPane.showMessageDialog(null, "No se encontró el usuario en el sistema", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 		correrAplicacion();
@@ -45,31 +49,29 @@ public class ConsolaCentral extends ConsolaBasica
 
 	/**
 	 * Valida la existencia de un empleado en la galería
+	 * 
 	 * @return El empleado buscado o null de lo contrario
 	 */
-	private Empleado validarEmpleado()
-	{
+	private Empleado validarEmpleado() {
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
 		Empleado empleado = controladorGaleria.galeria.buscarEmpleadoUsername(iUsername);
 
-		if ( empleado != null )
-		{
-			controladorGaleria.iniciarSesion( iUsername, iPassword );
-			System.out.println( "Inicio de sesión exitoso: Bienvenido " + empleado.getNombre() );
+		if (empleado != null) {
+			controladorGaleria.iniciarSesion(iUsername, iPassword);
+			JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso: Bienvenido " + empleado.getNombre());
 		}
 
 		return empleado;
 	}
-	
+
 	/**
-	 * Crea un nuevo empleado en la galeria
-	 * @throws IOException 
+	 * Crea un nuevo empleado en la galería
+	 * 
+	 * @throws IOException
 	 */
-	private void crearEmpleado() throws IOException
-	
-	{
+	private void crearEmpleado() throws IOException {
 		String iName = this.pedirCadenaAlUsuario("Ingrese su nombre");
 		String iPhone = this.pedirCadenaAlUsuario("Ingrese su número de teléfono");
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
@@ -77,88 +79,68 @@ public class ConsolaCentral extends ConsolaBasica
 
 		String[] opciones = { "Administrador", "Cajero", "Operador", "Empleado corriente" };
 
-		int input = this.mostrarMenu( "Elija el tipo de empleado", opciones);
+		int input = this.mostrarMenu("Elija el tipo de empleado", opciones);
 
 		int iRol;
-		switch ( input )
-		{
+		switch (input) {
 			case 1:
-			{
 				iRol = Empleado.ADMIN;
 				break;
-			}
 
 			case 2:
-			{
 				iRol = Empleado.CAJERO;
 				break;
-			}
 
 			case 3:
-			{
 				iRol = Empleado.OP;
 				break;
-			}
-
 			case 4:
-			{
 				iRol = Empleado.CORRIENTE;
 				break;
-			}
 
 			default:
-			{
 				iRol = Empleado.CORRIENTE;
 				break;
-			}
 		}
 
-		controladorGaleria.galeria.crearEmpleado( iName, iPhone, iUsername, iPassword, iRol );
-		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
-		System.out.println("\nUsuario creado exitosamente");
+		controladorGaleria.galeria.crearEmpleado(iName, iPhone, iUsername, iPassword, iRol);
+		controladorGaleria.salvarGaleria(controladorGaleria.galeria);
+		JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		correrAplicacion();
 	}
 
 	/**
-	 * Metodo para entrar al portal de empleados e iniciar sesión
-	 * @throws IOException 
+	 * Método para entrar al portal de empleados e iniciar sesión
+	 * 
+	 * @throws IOException
 	 */
-	private void portalEmpleados() throws IOException
-	{
+	public void portalEmpleados() throws IOException {
 		Empleado empleado = validarEmpleado();
 
-		if ( empleado == null )
-		{
-			System.out.println( "No se encontró el usuario en el sistema" );
-			
-			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea crear un nuevo empleado? (Para pruebas)");
-			
-			if ( confirmacion )
-			{
+		if (empleado == null) {
+			JOptionPane.showMessageDialog(null, "No se encontró el usuario en el sistema", "Error",
+					JOptionPane.ERROR_MESSAGE);
+
+			boolean confirmacion = this.pedirConfirmacionAlUsuario("¿Desea crear un nuevo empleado? (Para pruebas)");
+
+			if (confirmacion) {
 				crearEmpleado();
-				controladorGaleria.salvarGaleria( controladorGaleria.galeria );
+				controladorGaleria.salvarGaleria(controladorGaleria.galeria);
 			}
-			
+
 			correrAplicacion();
 		}
 
-		if ( empleado instanceof Administrador )
-		{
+		if (empleado instanceof Administrador) {
 			cAdmin = new ConsolaAdministrador(controladorGaleria);
-			cAdmin.correrConsola( );
-		}
-		else if ( empleado instanceof Operador )
-		{
+			cAdmin.correrConsola();
+		} else if (empleado instanceof Operador) {
 			cOperador = new ConsolaOperador(controladorGaleria);
-			cOperador.correrConsola( );
-		}
-		else if ( empleado instanceof Cajero )
-		{
+			cOperador.correrConsola();
+		} else if (empleado instanceof Cajero) {
 			cCajero = new ConsolaCajero(controladorGaleria);
-			cCajero.correrConsola( );
-		}
-		else
-		{
+			cCajero.correrConsola();
+		} else {
 			cEmpleado = new ConsolaEmpleadoCorriente(controladorGaleria);
 			cEmpleado.correrConsola();
 		}
@@ -167,79 +149,60 @@ public class ConsolaCentral extends ConsolaBasica
 	}
 
 	/**
-	 * Metodo para crear un nuevo usuario corriente
-	 * @throws IOException 
+	 * Método para crear un nuevo usuario corriente
+	 * 
+	 * @throws IOException
 	 */
-	private void crearNuevoUsuario() throws IOException
-	{
-
+	private void crearNuevoUsuario() throws IOException {
 		String iName = this.pedirCadenaAlUsuario("Ingrese su nombre");
 		String iPhone = this.pedirCadenaAlUsuario("Ingrese su número de teléfono");
 		String iUsername = this.pedirCadenaAlUsuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUsuario("Ingrese su contraseña");
 
 		controladorGaleria.galeria.crearUsuarioCorriente(iName, iPhone, iUsername, iPassword);
-		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
-		System.out.println("\nUsuario creado exitosamente");
+		controladorGaleria.salvarGaleria(controladorGaleria.galeria);
+		JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
 		correrAplicacion();
 	}
 
 	// ############################################ Run
 
-	public void correrAplicacion()
-	{
-
-		try 
-		{
+	public void correrAplicacion() {
+		try {
 			controladorGaleria = new ControladorGaleria();
 			controladorGaleria.cargarGaleria();
 
 			String[] opcionesMenuPrincipal = { "Iniciar sesión", "Soy empleado", "Crear nuevo usuario", "Salir" };
 
-			int iInput = this.mostrarMenu( "Bienvenido al menú principal de la galería", opcionesMenuPrincipal);
-			
-			switch ( iInput )
-			{
+			int iInput = this.mostrarMenu("Bienvenido al menú principal de la galería", opcionesMenuPrincipal);
+
+			switch (iInput) {
 				case 1: // Iniciar sesión
-				{
 					iniciarSesion();
 					break;
-				}
 
 				case 2: // Soy empleado
-				{
 					portalEmpleados();
 					break;
-				}
 
 				case 3: // Crear nuevo usuario
-				{
 					crearNuevoUsuario();
 					break;
-				}
 
 				case 4:
-				{
 					break;
-				}
 			}
-			
-		}
-		catch (Exception e) 
-		{
 
+		} catch (Exception e) {
 			e.printStackTrace();
-			
 		}
-
 	}
 
 	// ############################################ Main
 
-	public static void main(String[] args) 
-	{
-		ConsolaCentral ca = new ConsolaCentral();
+	public static void main(String[] args) {
+		ConsolaCentral ca = new ConsolaCentral(controladorGaleria);
 		ca.correrAplicacion();
 	}
 }

@@ -2,6 +2,8 @@ package consola;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import controlador.ControladorGaleria;
 import piezas.Pieza;
 import usuarios.*;
@@ -36,7 +38,7 @@ public class ConsolaOperador extends ConsolaEmpleado
 
 		if ( pieza == null )
 		{
-			System.out.println( "La pieza no fue encontrada, intente de nuevo" );
+			JOptionPane.showMessageDialog(null, "La pieza no fue encontrada, intente de nuevo");
 			correrConsola();
 		}
 
@@ -47,11 +49,11 @@ public class ConsolaOperador extends ConsolaEmpleado
 
 		if ( resultadoOperacion )
 		{
-			System.out.println( "Operacion realizada exitosamente" );
+			JOptionPane.showMessageDialog(null, "Operacion realizada exitosamente");
 		}
 		else
 		{
-			System.out.println( "Hubo un error al iniciar la subasta" );
+			JOptionPane.showMessageDialog(null, "Hubo un error al iniciar la subasta");
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
@@ -70,7 +72,7 @@ public class ConsolaOperador extends ConsolaEmpleado
 		boolean resultadoOperacion = false;
 		if ( pieza == null )
 		{
-			System.out.println( "La pieza no fue encontrada, intente de nuevo" );
+			JOptionPane.showMessageDialog(null, "La pieza no fue encontrada, intente de nuevo");
 			correrConsola();
 		}
 		else
@@ -80,11 +82,11 @@ public class ConsolaOperador extends ConsolaEmpleado
 
 		if ( resultadoOperacion )
 		{
-			System.out.println( "Operacion realizada exitosamente" );
+			JOptionPane.showMessageDialog(null, "Operacion realizada exitosamente");
 		}
 		else
 		{
-			System.out.println( "Hubo un error al iniciar la subasta" );
+			JOptionPane.showMessageDialog(null, "Hubo un error al iniciar la subasta");
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();

@@ -3,7 +3,7 @@ package consola;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-
+import javax.swing.JOptionPane;
 import controlador.ControladorGaleria;
 import galeria.Inventario;
 import pagos.Transaccion;
@@ -44,25 +44,25 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 				if ( nextComp == null )
 				{
-					System.out.println( "No hay compradores para verificar" );
+					JOptionPane.showMessageDialog(null, "No hay compradores para verificar");
 				}
 
 				else
 				{
-					System.out.println( "Usuario del siguiente comprador: " + nextComp );
+					JOptionPane.showMessageDialog(null, "Usuario del siguiente comprador: " + nextComp);
 
 					UsuarioCorriente comprador = controladorGaleria.galeria.buscarUsuarioCorrienteUsername(nextComp);
 
-					System.out.println( "Nombre: " + comprador.getNombre() );
-					System.out.println( "Telefono: " + comprador.getTelefono() );
-					System.out.println( "Estado de verificacion vendedor: " + comprador.isVerifVendedor() );
-					System.out.println( "Estado de verificacion comprador: " + comprador.isVerifComprador() );
+					JOptionPane.showMessageDialog(null, "Nombre: " + comprador.getNombre());
+					JOptionPane.showMessageDialog(null, "Telefono: " + comprador.getTelefono());
+					JOptionPane.showMessageDialog(null, "Estado de verificacion vendedor: " + comprador.isVerifVendedor());
+					JOptionPane.showMessageDialog(null, "Estado de verificacion comprador: " + comprador.isVerifComprador());
 
 					boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar este usuario?");
 
 					if ( confirmacion )
 					{
-						int montoMax = this.pedirEnteroAlUsuario( "Ingrese el monto maximo permitido para el usuario" );
+						int montoMax = this.pedirEnteroAlUsuario("Ingrese el monto maximo permitido para el usuario");
 						usuario.verificarComprador( comprador, montoMax );
 					}
 
@@ -78,19 +78,19 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 				if ( nextComp == null )
 				{
-					System.out.println( "No hay vendedores para verificar" );
+					JOptionPane.showMessageDialog(null, "No hay vendedores para verificar");
 				}
 
 				else
 				{
-					System.out.println( "Usuario del siguiente vendedor: " + nextComp );
+					JOptionPane.showMessageDialog(null, "Usuario del siguiente vendedor: " + nextComp);
 
 					UsuarioCorriente comprador = controladorGaleria.galeria.buscarUsuarioCorrienteUsername(nextComp);
 
-					System.out.println( "Nombre: " + comprador.getNombre() );
-					System.out.println( "Telefono: " + comprador.getTelefono() );
-					System.out.println( "Estado de verificacion vendedor: " + comprador.isVerifVendedor() );
-					System.out.println( "Estado de verificacion comprador: " + comprador.isVerifComprador() );
+					JOptionPane.showMessageDialog(null, "Nombre: " + comprador.getNombre());
+					JOptionPane.showMessageDialog(null, "Telefono: " + comprador.getTelefono());
+					JOptionPane.showMessageDialog(null, "Estado de verificacion vendedor: " + comprador.isVerifVendedor());
+					JOptionPane.showMessageDialog(null, "Estado de verificacion comprador: " + comprador.isVerifComprador());
 
 					boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar este usuario?");
 
@@ -111,19 +111,19 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 				if ( nextComp == null )
 				{
-					System.out.println( "No hay usuarios para verificar" );
+					JOptionPane.showMessageDialog(null, "No hay usuarios para verificar");
 				}
 
 				else
 				{
-					System.out.println( "Usuario del ofertante: " + nextComp );
+					JOptionPane.showMessageDialog(null, "Usuario del ofertante: " + nextComp);
 
 					UsuarioCorriente comprador = controladorGaleria.galeria.buscarUsuarioCorrienteUsername(nextComp);
 
-					System.out.println( "Nombre: " + comprador.getNombre() );
-					System.out.println( "Telefono: " + comprador.getTelefono() );
-					System.out.println( "Estado de verificacion vendedor: " + comprador.isVerifVendedor() );
-					System.out.println( "Estado de verificacion comprador: " + comprador.isVerifComprador() );
+					JOptionPane.showMessageDialog(null, "Nombre: " + comprador.getNombre());
+					JOptionPane.showMessageDialog(null, "Telefono: " + comprador.getTelefono());
+					JOptionPane.showMessageDialog(null, "Estado de verificacion vendedor: " + comprador.isVerifVendedor());
+					JOptionPane.showMessageDialog(null, "Estado de verificacion comprador: " + comprador.isVerifComprador());
 
 					boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar este usuario?");
 
@@ -162,24 +162,24 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 		if ( usuario == null )
 		{
-			System.out.println("El usuario no fue encontrado");
+			JOptionPane.showMessageDialog(null, "El usuario no fue encontrado");
 		}
 		else
 		{
-			System.out.println( "Nombre: " + usuario.getNombre() );
-			System.out.println( "Telefono: " + usuario.getTelefono() );
-			System.out.println( "Estado de verificacion vendedor: " + usuario.isVerifVendedor() );
-			System.out.println( "Estado de verificacion comprador: " + usuario.isVerifComprador() );
+			JOptionPane.showMessageDialog(null, "Nombre: " + usuario.getNombre());
+			JOptionPane.showMessageDialog(null, "Telefono: " + usuario.getTelefono());
+			JOptionPane.showMessageDialog(null, "Estado de verificacion vendedor: " + usuario.isVerifVendedor());
+			JOptionPane.showMessageDialog(null, "Estado de verificacion comprador: " + usuario.isVerifComprador());
 
 			HashMap<Date, HashMap<String, Transaccion>> historialTransacciones = usuario.getHistorialPagosFecha();
 
 			if ( historialTransacciones.isEmpty() )
 			{
-				System.out.println( "El usuario no tiene transacciones");
+				JOptionPane.showMessageDialog(null, "El usuario no tiene transacciones");
 			}
 			else
 			{
-				System.out.println( "El usuario tiene transacciones");
+				JOptionPane.showMessageDialog(null, "El usuario tiene transacciones");
 			}
 		}
 
@@ -198,18 +198,18 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 		if ( pieza == null )
 		{
-			System.out.println( "No hay piezas de salida" );
+			JOptionPane.showMessageDialog(null, "No hay piezas de salida");
 		}
 		else
 		{
-			System.out.println("Titulo: " + pieza.getTitulo() );
-			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
-			System.out.println("Autores: " + pieza.getAutores() );
-			System.out.println("Año: " + pieza.getAnio());
-			System.out.println("Ciudad: " + pieza.getCiudad());
-			System.out.println("Pais: " + pieza.getCiudad());
-			System.out.println("Estado: " + pieza.getEstado());
-			System.out.println("Propietario actual: " + pieza.getPropietario());
+			JOptionPane.showMessageDialog(null, "Titulo: " + pieza.getTitulo());
+			JOptionPane.showMessageDialog(null, "Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta());
+			JOptionPane.showMessageDialog(null, "Autores: " + pieza.getAutores());
+			JOptionPane.showMessageDialog(null, "Año: " + pieza.getAnio());
+			JOptionPane.showMessageDialog(null, "Ciudad: " + pieza.getCiudad());
+			JOptionPane.showMessageDialog(null, "Pais: " + pieza.getCiudad());
+			JOptionPane.showMessageDialog(null, "Estado: " + pieza.getEstado());
+			JOptionPane.showMessageDialog(null, "Propietario actual: " + pieza.getPropietario());
 
 			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar la entrada de esta pieza?");
 
@@ -250,18 +250,18 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 		if ( pieza == null )
 		{
-			System.out.println( "No hay piezas de salida" );
+			JOptionPane.showMessageDialog(null, "No hay piezas de salida");
 		}
 		else
 		{
-			System.out.println("Titulo: " + pieza.getTitulo() );
-			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
-			System.out.println("Autores: " + pieza.getAutores() );
-			System.out.println("Año: " + pieza.getAnio());
-			System.out.println("Ciudad: " + pieza.getCiudad());
-			System.out.println("Pais: " + pieza.getCiudad());
-			System.out.println("Estado: " + pieza.getEstado());
-			System.out.println("Propietario actual: " + pieza.getPropietario());
+			JOptionPane.showMessageDialog(null, "Titulo: " + pieza.getTitulo());
+			JOptionPane.showMessageDialog(null, "Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta());
+			JOptionPane.showMessageDialog(null, "Autores: " + pieza.getAutores());
+			JOptionPane.showMessageDialog(null, "Año: " + pieza.getAnio());
+			JOptionPane.showMessageDialog(null, "Ciudad: " + pieza.getCiudad());
+			JOptionPane.showMessageDialog(null, "Pais: " + pieza.getCiudad());
+			JOptionPane.showMessageDialog(null, "Estado: " + pieza.getEstado());
+			JOptionPane.showMessageDialog(null, "Propietario actual: " + pieza.getPropietario());
 
 			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar la entrada de esta pieza?");
 
@@ -284,25 +284,25 @@ public class ConsolaAdministrador extends ConsolaEmpleado
 
 		if ( titulo == null )
 		{
-			System.out.println( "No hay piezas de salida" );
+			JOptionPane.showMessageDialog(null, "No hay piezas de salida");
 		}
 		else
 		{
 			Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(titulo);
-			System.out.println("Titulo: " + pieza.getTitulo() );
-			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
-			System.out.println("Autores: " + pieza.getAutores() );
-			System.out.println("Año: " + pieza.getAnio());
-			System.out.println("Ciudad: " + pieza.getCiudad());
-			System.out.println("Pais: " + pieza.getCiudad());
-			System.out.println("Estado: " + pieza.getEstado());
-			System.out.println("Propietario actual: " + pieza.getPropietario());
+			JOptionPane.showMessageDialog(null, "Titulo: " + pieza.getTitulo());
+			JOptionPane.showMessageDialog(null, "Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta());
+			JOptionPane.showMessageDialog(null, "Autores: " + pieza.getAutores());
+			JOptionPane.showMessageDialog(null, "Año: " + pieza.getAnio());
+			JOptionPane.showMessageDialog(null, "Ciudad: " + pieza.getCiudad());
+			JOptionPane.showMessageDialog(null, "Pais: " + pieza.getCiudad());
+			JOptionPane.showMessageDialog(null, "Estado: " + pieza.getEstado());
+			JOptionPane.showMessageDialog(null, "Propietario actual: " + pieza.getPropietario());
 
 			boolean confirmacion = this.pedirConfirmacionAlUsuario("Desea verificar la compra de esta pieza?");
 
 			if ( confirmacion )
 			{
-				usuario.registrarAdquisicionPieza(titulo, controladorGaleria.galeria.getMapaUsuariosCorrientes(), controladorGaleria.galeria, controladorGaleria.galeria.getPortalPagos(), (Cajero)controladorGaleria.galeria.buscarEmpleadoUsername(nombreCajero));;
+				usuario.registrarAdquisicionPieza(titulo, controladorGaleria.galeria.getMapaUsuariosCorrientes(), controladorGaleria.galeria, controladorGaleria.galeria.getPortalPagos(), (Cajero)controladorGaleria.galeria.buscarEmpleadoUsername(nombreCajero));
 			}
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );

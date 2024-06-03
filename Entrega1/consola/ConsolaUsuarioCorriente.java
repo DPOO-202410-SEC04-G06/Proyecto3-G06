@@ -1,5 +1,5 @@
 package consola;
-
+import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.util.*;
 
@@ -156,7 +156,8 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 	 */
 	private Pieza nuevaFotografia(String titulo, String tipo, ArrayList<String> autores, String anio, String ciudad, String pais)
 	{
-		HashMap<String, String> datos = new HashMap<String, String>();
+		HashMap<String, String> datos = new HashMap<String
+		, String>();
 		
 		String a1 = this.pedirCadenaAlUsuario("Ingrese la siguiente informacion: " + Fotografia.ALTO);
 		datos.put(Fotografia.ALTO, a1);
@@ -410,7 +411,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 			}
 		}
 	}
-	
+
 	/**
 	 * Consulta informacion acerca del historial de una pieza
 	 * @throws IOException 
@@ -444,7 +445,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
 	}
-	
+
 	/**
 	 * Muestra la informacion de un autor
 	 * @param nombre
@@ -459,6 +460,7 @@ public class ConsolaUsuarioCorriente extends ConsolaBasica
 		System.out.println("\nMostrando los 3 primeros resultados...");
 		int i = 1;
 		while ( i <= 3 && piezasIt.hasNext() )
+		
 		{
 			Pieza next = piezasIt.next();
 			System.out.println("Pieza" + i +": " + next.getTitulo() );

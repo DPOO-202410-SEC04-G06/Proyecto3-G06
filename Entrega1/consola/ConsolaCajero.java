@@ -3,6 +3,8 @@ package consola;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import controlador.ControladorGaleria;
 import pagos.*;
 import usuarios.*;
@@ -22,10 +24,10 @@ public class ConsolaCajero extends ConsolaEmpleado
 		this.usuario = (Cajero) controladorGaleria.usuarioDeLaSesion;
 	}
 	
-	// ############################################ Metodos
+	// ############################################ Métodos
 	
 	/**
-	 * Verifica si la transaccion va a ser procesada o no
+	 * Verifica si la transacción va a ser procesada o no
 	 * @param nextTransaccion
 	 * @return La respuesta del usuario
 	 */
@@ -42,19 +44,18 @@ public class ConsolaCajero extends ConsolaEmpleado
 		String nombreVendedor = nextTransaccion.getNombreVendedor();
 		int precioTransaccion = nextTransaccion.getPrecio();
 
-		System.out.println( "\nCodigo: " + codigoTransaccion );
-		System.out.println( "Fecha: " + fechaTransaccion );
-		System.out.println( "Pieza: " + nombrePieza );
-		System.out.println( "Comprador: " + nombreComprador );
-		System.out.println( "Vendedor: " + nombreVendedor );
-		System.out.println( "Precio de venta: " + precioTransaccion );
+		String mensaje = String.format(
+			"Codigo: %d\nFecha: %s\nPieza: %s\nComprador: %s\nVendedor: %s\nPrecio de venta: %d", 
+			codigoTransaccion, fechaTransaccion, nombrePieza, nombreComprador, nombreVendedor, precioTransaccion
+		);
 
-		return pedirConfirmacionAlUsuario( "Desea confirmar esta transaccion?" );
+		JOptionPane.showMessageDialog(null, mensaje, "Detalles de la Transacción", JOptionPane.INFORMATION_MESSAGE);
 
+		return pedirConfirmacionAlUsuario("¿Desea confirmar esta transacción?");
 	}
 
 	/**
-	 * Registra una nueva transaccion en el sistema
+	 * Registra una nueva transacción en el sistema
 	 * @throws IOException 
 	 */
 	public void registrarTransaccion() throws IOException
@@ -68,17 +69,17 @@ public class ConsolaCajero extends ConsolaEmpleado
 			if ( confirmacion )
 			{
 				usuario.registrarTransaccion(nextTransaccion, nextTransaccion.getFecha(), nextTransaccion.getCodigoTransaccion(), controladorGaleria.galeria.getPortalPagos());
-				System.out.println("Registro exitoso.");
+				JOptionPane.showMessageDialog(null, "Registro exitoso.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 			{
 				usuario.nuevaTransaccionPendiente(nextTransaccion);
-				System.out.println("Operacion cancelada");
+				JOptionPane.showMessageDialog(null, "Operación cancelada.", "Cancelación", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		else
 		{
-			System.out.println("Operacion no exitosa");
+			JOptionPane.showMessageDialog(null, "Operación no exitosa.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();
@@ -86,15 +87,15 @@ public class ConsolaCajero extends ConsolaEmpleado
 
 	// ############################################ Run
 	
-	public void correrConsola( ) throws IOException
+	public void correrConsola() throws IOException
 	{
 		
 		String[] opcionesMenuUsuario = { "Actualizar estado de una pieza", "Cambiar propietario de una pieza",
-										"Buscar transaccion", "Consultar pieza", "Consultar historial de una pieza",
-										"Consultar historial de un artista", "Registrar transaccion en el sistema",
-										"Cerrar sesion"};
+										"Buscar transacción", "Consultar pieza", "Consultar historial de una pieza",
+										"Consultar historial de un artista", "Registrar transacción en el sistema",
+										"Cerrar sesión"};
 		
-		int iInput = this.mostrarMenu( "Menu de cajero. Bienvenido " + nombreUsuario , opcionesMenuUsuario );
+		int iInput = this.mostrarMenu("Menú de cajero. Bienvenido " + nombreUsuario, opcionesMenuUsuario);
 		
 		switch ( iInput )
 		{
@@ -110,13 +111,13 @@ public class ConsolaCajero extends ConsolaEmpleado
 				break;
 			}
 			
-			case 3: // Buscar transaccion
+			case 3: // Buscar transacción
 			{
 				this.buscarTransaccion();
 				break;
 			}
 			
-			case 4: // consultar pieza
+			case 4: // Consultar pieza
 			{
 				this.consultarPieza();
 				break;
@@ -134,13 +135,13 @@ public class ConsolaCajero extends ConsolaEmpleado
 				break;
 			}
 
-			case 7: // Registrar transaccion
+			case 7: // Registrar transacción
 			{
 				registrarTransaccion();
 				break;
 			}
 			
-			case 8: // Cerrar sesion
+			case 8: // Cerrar sesión
 			{
 				controladorGaleria.cerrarSesion();
 				break;

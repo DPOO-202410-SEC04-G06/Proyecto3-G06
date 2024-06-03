@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import controlador.ControladorGaleria;
 import galeria.*;
 import pagos.*;
@@ -40,23 +42,23 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	// ############################################ Run
 	
 	/**
-	 * Metodo principal para correr la consola del usuario
+	 * Método principal para correr la consola del usuario
 	 * @throws IOException 
 	 */
 	public abstract void correrConsola() throws IOException;
 	
-	// ############################################ Metodos
+	// ############################################ Métodos
 	
 	/**
-	 * Actualiza el estado de una pieza en la galeria. El empleado corriente solamente podra actualizar 
-	 * el estado a bodega o a exposicion
+	 * Actualiza el estado de una pieza en la galería. El empleado corriente solamente podrá actualizar 
+	 * el estado a bodega o a exposición
 	 * @throws IOException 
 	 */
 	protected void actualizarEstadoPieza() throws IOException
 	{
 		int newState;
 		
-		String nombrePieza = this.pedirCadenaAlUsuario("Digite el nombre de la pieza que desea actualizar");
+		String nombrePieza = JOptionPane.showInputDialog("Digite el nombre de la pieza que desea actualizar");
 		
 		String[] opcionesEstado = { "Bodega", "Exponer" };
 		
@@ -77,26 +79,26 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	}
 	
 	/**
-	 * Cambia el propietario de una pieza actualmente en la galeria
+	 * Cambia el propietario de una pieza actualmente en la galería
 	 * @throws IOException 
 	 */
 	protected void cambiarPropietarioPieza() throws IOException
 	{
-		String nombreUsuario = this.pedirCadenaAlUsuario("Digite el nombre del nuevo propietario");
+		String nombreUsuario = JOptionPane.showInputDialog("Digite el nombre del nuevo propietario");
 		UsuarioCorriente propietario = controladorGaleria.galeria.buscarUsuarioCorrienteUsername(nombreUsuario);
 		
 		if ( propietario == null )
 		{
-			System.out.println( "No se encontro el usuario, intente de nuevo");
+			JOptionPane.showMessageDialog(null, "No se encontró el usuario, intente de nuevo");
 			correrConsola();
 		}
 		
-		String nombrePieza = this.pedirCadenaAlUsuario("Digite el nombre de la pieza");
+		String nombrePieza = JOptionPane.showInputDialog("Digite el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarPiezaGaleria(nombrePieza);
 		
 		if ( pieza == null )
 		{
-			System.out.println( "No se encontro el la pieza, intente de nuevo");
+			JOptionPane.showMessageDialog(null, "No se encontró la pieza, intente de nuevo");
 			correrConsola();
 		}
 		
@@ -106,31 +108,31 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	}
 	
 	/**
-	 * Busca una transaccion en el sistema
+	 * Busca una transacción en el sistema
 	 * @throws IOException 
 	 */
 	protected void buscarTransaccion() throws IOException
 	{
-		String[] opcionesBuscar = { "Buscar por codigo", "Buscar por fecha" };
-		int iBuscarT = this.mostrarMenu("Seleccione una opcion", opcionesBuscar);
+		String[] opcionesBuscar = { "Buscar por código", "Buscar por fecha" };
+		int iBuscarT = this.mostrarMenu("Seleccione una opción", opcionesBuscar);
 		
 		if (iBuscarT == 1)
 		{
-			int codigo = this.pedirEnteroAlUsuario("Ingrese el codigo de la transaccion");
+			int codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el código de la transacción"));
 			Transaccion transaccion = usuario.buscarTransaccionCodigo(codigo, controladorGaleria.galeria.getPortalPagos());
 			if ( transaccion == null )
 			{
-				System.out.println( "Transaccion no encontrada, vuelva a intentarlo");
+				JOptionPane.showMessageDialog(null, "Transacción no encontrada, vuelva a intentarlo");
 				correrConsola();
 			}
 			else
 			{
-			System.out.println( "Transaccion encontrada...");
-			System.out.println("Codigo: " + transaccion.getCodigoTransaccion() );
-			System.out.println("Comprador: " + transaccion.getNombreComprador() );
-			System.out.println("Vendedor: " + transaccion.getNombreVendedor() );
-			System.out.println("Precio de venta: " + transaccion.getPrecio() );
-			System.out.println("Fecha: " + transaccion.getFecha() );
+				JOptionPane.showMessageDialog(null, "Transacción encontrada...\n" +
+					"Código: " + transaccion.getCodigoTransaccion() + "\n" +
+					"Comprador: " + transaccion.getNombreComprador() + "\n" +
+					"Vendedor: " + transaccion.getNombreVendedor() + "\n" +
+					"Precio de venta: " + transaccion.getPrecio() + "\n" +
+					"Fecha: " + transaccion.getFecha());
 			}
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
@@ -143,21 +145,22 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	 */
 	protected void consultarPieza() throws IOException
 	{
-		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+		String nombrePieza = JOptionPane.showInputDialog("Ingrese el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarTodasLasPiezas(nombrePieza);
 		if ( pieza != null )
 		{
-			System.out.println("\nPieza encontrada...");
-			System.out.println("Titulo: " + pieza.getTitulo() );
-			System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
-			System.out.println("Autores: " + pieza.getAutores() );
-			System.out.println("Año: " + pieza.getAnio());
-			System.out.println("Ciudad: " + pieza.getCiudad());
-			System.out.println("Pais: " + pieza.getCiudad());
-			System.out.println("Estado: " + pieza.getEstado());
-			System.out.println("Propietario actual: " + pieza.getPropietario().getUsername() );
-
-			boolean continuar = this.pedirConfirmacionAlUsuario("Desea realizar otra consulta?");
+			JOptionPane.showMessageDialog(null, "Pieza encontrada...\n" +
+				"Título: " + pieza.getTitulo() + "\n" +
+				"Precio de venta (-1 si no está en venta): " + pieza.getPrecioVenta() + "\n" +
+				"Autores: " + pieza.getAutores() + "\n" +
+				"Año: " + pieza.getAnio() + "\n" +
+			
+				"Ciudad: " + pieza.getCiudad() + "\n" +
+				"País: " + pieza.getPais() + "\n" +
+				"Estado: " + pieza.getEstado() + "\n" +
+				"Propietario actual: " + pieza.getPropietario().getUsername());
+			
+			boolean continuar = JOptionPane.showConfirmDialog(null, "¿Desea realizar otra consulta?", "Consulta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
 			if (continuar)
 			{
@@ -166,7 +169,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 		}
 		else
 		{
-			System.out.println("Pieza no fue encontrada");
+			JOptionPane.showMessageDialog(null, "Pieza no encontrada");
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();	
@@ -184,42 +187,41 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 
 		Iterator<String> usernameIt = usernamesSet.iterator();
 
-		System.out.println("\nMostrando los 3 primeros resultados...");
+		StringBuilder messageBuilder = new StringBuilder("\nMostrando los 3 primeros resultados...\n");
 		int i = 1;
 		while ( i <= 3 && usernameIt.hasNext() )
 		{
 			String next = usernameIt.next();
-			System.out.println( "Usuario " + i + ": " + next );
+			messageBuilder.append("Usuario ").append(i).append(": ").append(next).append("\n");
 			i += 1;
 		}
+		messageBuilder.append("\n¿Desea buscar un usuario específico en el historial?");
 
-		boolean confirmacion = this.pedirConfirmacionAlUsuario( "Desea buscar un usuario especifico en el historial?");
+		boolean confirmacion = JOptionPane.showConfirmDialog(null, messageBuilder.toString(), "Consulta de historial de usuarios", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
 		if (!confirmacion)
 		{
-			System.out.println( "Consulta finalizada." );
+			JOptionPane.showMessageDialog(null, "Consulta finalizada.");
 		}
 		else
 		{
-			String username = this.pedirCadenaAlUsuario("Ingrese el nombre de usuario (username) que desea buscar");
+			String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario (username) que desea buscar");
 			UsuarioCorriente usuario = mapaUsuarios.get(username);
 
 			if ( usuario == null )
 			{
-				System.out.println("Usuario no encontrado.");
+				JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
 			}
 			else
 			{
-				System.out.println("Usuario encontrado...");
-				System.out.println("Nombre: " + usuario.getNombre() );
-				System.out.println("Telefono: " + usuario.getTelefono() );
-				System.out.println("Nombre de usuario (username): " + usuario.getUsername() );
+				JOptionPane.showMessageDialog(null, "Usuario encontrado...\n" +
+					"Nombre: " + usuario.getNombre() + "\n" +
+					"Teléfono: " + usuario.getTelefono() + "\n" +
+					"Nombre de usuario (username): " + usuario.getUsername());
 
-				showUsuarios( pieza );
-
+				showUsuarios(pieza);
 			}
 		}
-
 	}
 
 	/**
@@ -234,41 +236,41 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 
 		Iterator<Integer> transIt = transaccionesSet.iterator();
 
-		System.out.println("\nMostrando los 3 primeros resultados...");
+		StringBuilder messageBuilder = new StringBuilder("\nMostrando los 3 primeros resultados...\n");
 		int i = 1;
 		while ( i <= 3 && transIt.hasNext() )
 		{
 			Integer next = transIt.next();
-			System.out.println( "Codigo " + i + ": " + next );
+			messageBuilder.append("Código ").append(i).append(": ").append(next).append("\n");
 			i += 1;
 		}
+		messageBuilder.append("\n¿Desea buscar una transacción específica en el historial?");
 
-		boolean confirmacion = this.pedirConfirmacionAlUsuario( "Desea buscar una transaccion especifica en el historial?");
+		boolean confirmacion = JOptionPane.showConfirmDialog(null, messageBuilder.toString(), "Consulta de historial de transacciones", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
 		if (!confirmacion)
 		{
-			System.out.println( "Consulta finalizada." );
+			JOptionPane.showMessageDialog(null, "Consulta finalizada.");
 		}
 		else
 		{
-			Integer code = this.pedirEnteroAlUsuario("Ingrese el codigo de transaccion que desea buscar");
+			int code = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el código de transacción que desea buscar"));
 			Transaccion transaccion = mapaTransacciones.get(code);
 
 			if ( transaccion == null )
 			{
-				System.out.println("Transaccion no encontrado.");
+				JOptionPane.showMessageDialog(null, "Transacción no encontrada.");
 			}
 			else
 			{
-				System.out.println("Transaccion encontrada...");
-				System.out.println("Codigo: " + transaccion.getCodigoTransaccion() );
-				System.out.println("Comprador: " + transaccion.getNombreComprador() );
-				System.out.println("Vendedor: " + transaccion.getNombreVendedor() );
-				System.out.println("Precio de venta: " + transaccion.getPrecio() );
-				System.out.println("Fecha: " + transaccion.getFecha() );
+				JOptionPane.showMessageDialog(null, "Transacción encontrada...\n" +
+					"Código: " + transaccion.getCodigoTransaccion() + "\n" +
+					"Comprador: " + transaccion.getNombreComprador() + "\n" +
+					"Vendedor: " + transaccion.getNombreVendedor() + "\n" +
+					"Precio de venta: " + transaccion.getPrecio() + "\n" +
+					"Fecha: " + transaccion.getFecha());
 
 				showTransacciones(pieza);
-
 			}
 		}
 	}
@@ -279,28 +281,28 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	 */
 	protected void consultarHistorialPieza() throws IOException
 	{
-		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+		String nombrePieza = JOptionPane.showInputDialog("Ingrese el nombre de la pieza");
 		Pieza pieza = controladorGaleria.galeria.consultarTodasLasPiezas(nombrePieza);
 		if ( pieza != null )
 		{
-			System.out.println("\nPieza encontrada...");
+			JOptionPane.showMessageDialog(null, "Pieza encontrada...");
 
 			String[] opciones = { "Consultar historial de usuarios de la pieza", "Consultar historial de transacciones" };
 
-			int iInput = this.mostrarMenu( "Elija una opcion", opciones);
+			int iInput = JOptionPane.showOptionDialog(null, "Elija una opción", "Consulta de historial de la pieza", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
 
-			if ( iInput == 1 )
+			if ( iInput == 0 )
 			{
-				showUsuarios( pieza );
+				showUsuarios(pieza);
 			}
 			else
 			{
-				showTransacciones( pieza );
+				showTransacciones(pieza);
 			}
 		}
 		else
 		{
-			System.out.println("Pieza no fue encontrada");
+			JOptionPane.showMessageDialog(null, "Pieza no fue encontrada");
 		}
 
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
@@ -314,29 +316,31 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	 */
 	private void showArtista( String nombre, ArrayList<Pieza> autor )
 	{
-		System.out.println("Mostrando informacion de " + nombre );
+		StringBuilder messageBuilder = new StringBuilder("Mostrando información de ").append(nombre).append("\n");
 
 		Iterator<Pieza> piezasIt = autor.iterator();
 
-		System.out.println("\nMostrando los 3 primeros resultados...");
+		messageBuilder.append("\nMostrando los 3 primeros resultados...\n");
 		int i = 1;
 		while ( i <= 3 && piezasIt.hasNext() )
 		{
 			Pieza next = piezasIt.next();
-			System.out.println("Pieza" + i +": " + next.getTitulo() );
+			messageBuilder.append("Pieza").append(i).append(": ").append(next.getTitulo()).append("\n");
 			i += 1;
 		}
+		messageBuilder.append("\n¿Desea buscar una pieza específica en el historial?");
 
-		boolean confirmacion = this.pedirConfirmacionAlUsuario( "Desea buscar una pieza especifica en el historial?");
+		boolean confirmacion = JOptionPane.showConfirmDialog(null, messageBuilder.toString(), "Consulta de historial de artista", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
 		if (!confirmacion)
 		{
-			System.out.println( "Consulta finalizada." );
+			JOptionPane.showMessageDialog(null, "Consulta finalizada.");
 		}
 		else
 		{
 			piezasIt = autor.iterator();
-			String titulo = this.pedirCadenaAlUsuario("Ingrese el titulo de la pieza que desea buscar");
+			String titulo =
+			JOptionPane.showInputDialog("Ingrese el título de la pieza que desea buscar");
 			
 			boolean found = false;
 			Pieza pieza = null;
@@ -352,27 +356,25 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 
 			if ( pieza == null )
 			{
-				System.out.println("Pieza no encontrado.");
+				JOptionPane.showMessageDialog(null, "Pieza no encontrada.");
 			}
 			else
 			{
-				System.out.println("Pieza encontrada...");
-				System.out.println("Titulo: " + pieza.getTitulo() );
-				System.out.println("Precio de venta (-1 si no esta en venta): " + pieza.getPrecioVenta() );
-				System.out.println("Autores: " + pieza.getAutores() );
-				System.out.println("Año: " + pieza.getAnio());
-				System.out.println("Ciudad: " + pieza.getCiudad());
-				System.out.println("Pais: " + pieza.getCiudad());
-				System.out.println("Estado: " + pieza.getEstado());
-				System.out.println("Propietario actual: " + pieza.getPropietario().getUsername() );
+				JOptionPane.showMessageDialog(null, "Pieza encontrada...\n" +
+					"Título: " + pieza.getTitulo() + "\n" +
+					"Precio de venta (-1 si no está en venta): " + pieza.getPrecioVenta() + "\n" +
+					"Autores: " + pieza.getAutores() + "\n" +
+					"Año: " + pieza.getAnio() + "\n" +
+					"Ciudad: " + pieza.getCiudad() + "\n" +
+					"País: " + pieza.getPais() + "\n" +
+					"Estado: " + pieza.getEstado() + "\n" +
+					"Propietario actual: " + pieza.getPropietario().getUsername());
 
 				showTransacciones(pieza);
 
 				showArtista(nombre, autor);
-
 			}
 		}
-
 	}
 
 	/**
@@ -381,7 +383,7 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 	 */
 	protected void consultarHistorialArtista() throws IOException
 	{
-		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del autor");
+		String nombreArtista = JOptionPane.showInputDialog("Ingrese el nombre del autor");
 		HashMap<String, ArrayList<Pieza>> mapaArtistas = controladorGaleria.galeria.getMapaAutores();
 		
 		if ( mapaArtistas != null )
@@ -389,18 +391,18 @@ public abstract class ConsolaEmpleado extends ConsolaBasica
 			ArrayList<Pieza> autor = mapaArtistas.get(nombreArtista);
 			if ( autor != null )
 			{
-				System.out.println("\nAutor encontrado...");
+				JOptionPane.showMessageDialog(null, "Autor encontrado...");
 				
-				showArtista( nombreArtista, autor );
+				showArtista(nombreArtista, autor);
 			}
 			else
 			{
-				System.out.println("Autor no fue encontrado");
+				JOptionPane.showMessageDialog(null, "Autor no fue encontrado");
 			}
 		}
 		else
 		{
-			System.out.println("Autor no fue encontrado");
+			JOptionPane.showMessageDialog(null, "Autor no fue encontrado");
 		}
 		controladorGaleria.salvarGaleria( controladorGaleria.galeria );
 		correrConsola();

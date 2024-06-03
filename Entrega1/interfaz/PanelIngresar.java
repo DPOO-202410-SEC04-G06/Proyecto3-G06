@@ -1,34 +1,29 @@
 package interfaz;
 
 import controlador.ControladorGaleria;
+import usuarios.Empleado;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import consola.ConsolaCentral;
 import consola.ConsolaUsuarioCorriente;
 
+public class PanelIngresar extends JPanel {
 
-public class PanelIngresar extends JPanel{
-	
 	// Atributos de la interfaz
-
 	private JTextField login;
 	private JTextField contraseña;
 	private JButton BtnAceptar;
 	private static ControladorGaleria controladorGaleria;
-	
-	
-	
+
 	public PanelIngresar() {
 		IniciarRegistro();
 		ConfigurarRegistro();
@@ -38,46 +33,65 @@ public class PanelIngresar extends JPanel{
 	private void IniciarRegistro() {
 		login = new JTextField(15);
 		contraseña = new JTextField(15);
-		BtnAceptar = new JButton("Aceptar");
+		BtnAceptar = new JButton("Iniciar Sesion");
 	}
-	
-	private void ConfigurarRegistro() {
 
+	private void ConfigurarRegistro() {
+		controladorGaleria = new ControladorGaleria();
+		try {
+			controladorGaleria.cargarGaleria();
+		} catch (ClassNotFoundException | IOException e1) {
+
+			e1.printStackTrace();
+		}
 		login.setEditable(true);
-		contraseña.setEditable(true );	
+		contraseña.setEditable(true);
 		BtnAceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String usuario = login.getText();
-				String password = contraseña.getText();
-				// Aquí puedes usar las variables usuario y password como necesites
-				System.out.println("Usuario: " + usuario + ", Contraseña: " + password);
-				boolean result = controladorGaleria.iniciarSesion( usuario, password );
-				
-				if ( result )
-				{
-					JFrame frame = new InterfazUsuarioCorriente(controladorGaleria);
-                    frame.setVisible(true);
-					
-				}
-				else
-				{
-					System.out.println( "No se encontró el usuario en el sistema" );
-				}
+				String userLogin = login.getText();
+				String userPassword = contraseña.getText();
+				System.out.println("Usuario: " + userLogin); // Debug
+				System.out.println("Contraseña: " + userPassword); // Debug
 
-				
+				Empleado empleado = controladorGaleria.galeria.buscarEmpleadoUsername(userLogin);
+				if (empleado != null) {
+					controladorGaleria.iniciarSesion(userLogin, userPassword);
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso: Bienvenido " + empleado.getNombre());
+					ConsolaCentral consolaCentral = new ConsolaCentral(controladorGaleria);
+
+					try {
+						consolaCentral.portalEmpleados();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					boolean result = controladorGaleria.iniciarSesion(userLogin, userPassword);
+					System.out.println("Resultado del inicio de sesión: " + result); // Debug
+					if (result) {
+						JOptionPane.showMessageDialog(null,
+								"Inicio de sesión exitoso: Bienvenido "
+										+ controladorGaleria.usuarioDeLaSesion.getNombre());
+						ConsolaCentral consolaCentral = new ConsolaCentral(controladorGaleria);
+
+						consolaCentral.correrAplicacion();
+
+					} else {
+						JOptionPane.showMessageDialog(null, "No se encontró el usuario en el sistema", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						System.out.println("No se encontró el usuario en el sistema");
+					}
+				}
 			}
-			
 		});
 	}
-	
-	private void AgregarRegistro() {
 
-        add(new JLabel("Login:"));
-        add(login);
-        add(new JLabel("Contraseña:"));
-        add(contraseña);
-        add(BtnAceptar);
-		
+	private void AgregarRegistro() {
+		add(new JLabel("Login:"));
+		add(login);
+		add(new JLabel("Contraseña:"));
+		add(contraseña);
+		add(BtnAceptar);
 	}
 }
